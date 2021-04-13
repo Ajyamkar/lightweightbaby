@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Login from './Components/Authentication/Login';
+import gif1 from "./Assets/lift.gif";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react'
+
+export default class App extends Component {
+  render() {
+    window.onload = () => {
+      const myVar = setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("main").style.display = "block";
+      }, 5000);
+    }
+
+    return (
+      <div className="App">
+        <div id="loader" >
+          <p style={{ position: "absolute" }} className="loader-heading">Light Weight Baby</p>
+          <img src={gif1} alt="gif" style={{ width: "100vw" }} />
+        </div>
+        <div id="main" style={{ display: "none" }}>
+          <Login />
+        </div>
+
+      </div>
+    )
+  }
 }
 
-export default App;
