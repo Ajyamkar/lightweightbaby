@@ -1,0 +1,233 @@
+.login{
+    background: url(https://images.unsplash.com/photo-1576678927484-cc907957088c?ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDIwfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60);
+    background: url(https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjB8fGZpdG5lc3N8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60);
+    background: url(../../../Assets/LoginBackground.jpg);
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.login h1{
+    color: black;
+    text-align: center;
+    padding: 8px 0;
+    font-family: 'Zen Dots', cursive;
+    font-size: 22px;
+}
+
+.login-main-div{
+    display: inline-grid;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.login-btn-div{
+    margin: 0 16.2vw 0;
+}
+
+.login-submit-btn{
+    background: wheat !important;
+    width: 69vw !important;
+    display: inline-grid !important;
+    margin: 0 16.2vw!important;
+    margin-bottom: 9px !important;
+}
+
+.social-login-btn{
+    background: #f1a43c;
+    width: 69vw;
+    margin: 0 16.2vw 10px;
+    display: flex;
+    justify-content: center;
+    padding: 7px 0;
+    border-radius: 4px;
+    align-items: center;
+    font-family: 'Roboto';
+    cursor: pointer;
+}
+
+.social-login-icon{
+    width: 24px;
+    margin-right: 5px;
+}
+
+.social-login-btn:hover{
+    background-color: wheat;
+}
+
+.login .form-icon{
+    color: "#8f4252" !important;
+}
+
+.login .MuiFormLabel-root{
+    color: black;
+    font-size: 20px;
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+
+.login .MuiInput-underline::after{
+    border-bottom: 2px solid #8f4252 !important;
+}
+
+.login .MuiFormLabel-root.Mui-focused{
+    color: #8f4252 !important;
+}
+
+.text-input{
+    /* background-color: wheat !important; */
+    margin: 5px 16.2vw !important;
+    width: 69vw !important;
+}
+
+.join-p{
+    text-align: center;
+    font-weight: 700;
+    color: #8f4252;
+    font-family: Roboto;
+}
+/* For Tablets */
+@media screen and (max-width:1024px) and (min-width:620px) {
+    .login{
+        background: url(../../../Assets/loginTabBg.jpg);
+        background-repeat: no-repeat;
+        background-position:center;
+        background-size: cover;
+    }
+
+    .login-main-div{
+        width: 25rem;
+        position: relative;
+        margin-top: 25vh;
+        left: 51vw;
+    }
+
+    .social-login-btn {
+        background: white;
+        width: 39vw;
+        margin: 0 16.2vw 10px;
+        display: flex;
+        justify-content: center;
+        padding: 7px 0;
+        border-radius: 4px;
+        align-items: center;
+        font-family: 'Roboto';
+        cursor: pointer;
+    }
+
+    .text-input {
+        margin: 5px 16.2vw !important;
+        width: 39vw !important;
+        color: white !important;
+    }
+
+    .login .MuiInputBase-input{
+        color: white;
+    }
+
+    .login .MuiFormLabel-root{
+        color: black;
+        font-size: 20px;
+        font-family: 'Roboto';
+        font-weight: 500;
+    }
+    
+    .login .MuiInput-underline::after{
+        border-bottom: 2px solid white !important;
+    }
+    
+    .login .MuiFormLabel-root.Mui-focused{
+        color: white !important;
+    }
+
+    .login-submit-btn {
+        background: white !important;
+        width: 39vw !important;
+        display: inline-grid !important;
+        margin: 5px 16.2vw!important;
+        margin-bottom: 9px !important;
+    }
+
+    .login a{
+        color: white;
+    }
+    .join-p{
+        text-align: center;
+        font-weight: 700;
+        color:wheat;
+        font-family: Roboto;
+    }
+}
+
+
+/* For Desktops  */
+@media screen and (min-width:1025px) {
+    .login{
+        background: url(https://image.shutterstock.com/image-photo/gym-equipment-on-yellow-background-260nw-1605553030.jpg);
+        /* background: url(../../../Assets/New\ Project.png); */
+        background: url(../../../Assets/Crunches.jpg);
+        background-repeat: no-repeat;
+        background-position:center;
+        background-size: cover;
+    }
+
+    .login-main-div{
+        width: 25rem;
+        position: relative;
+        left: 50vw;
+    }
+
+    .social-login-btn {
+        background: wheat;
+        width: 30vw;
+        margin: 0 21.2vw 10px;
+        display: flex;
+        justify-content: center;
+        padding: 7px 0;
+        border-radius: 4px;
+        align-items: center;
+        font-family: 'Roboto';
+        cursor: pointer;
+    }
+
+    .social-login-btn:hover{
+        background-color: white;
+    }
+    
+    
+    .text-input {
+        margin: 5px 21.2vw !important;
+        width: 30vw !important;
+    }
+
+    .login .form-icon{
+        color: rgb(7 23 113) !important;
+    }
+
+    .login .MuiFormLabel-root{
+        color: black;
+        font-size: 20px;
+        font-family: 'Roboto';
+        font-weight: 500;
+    }
+    
+    .login .MuiInput-underline::after{
+        border-bottom: 2px solid #477f57 !important;
+    }
+    
+    .login .MuiFormLabel-root.Mui-focused{
+        color: #477f57 !important;
+    }
+
+    .login-submit-btn {
+        background: wheat !important;
+        width: 30vw !important;
+        display: inline-grid !important;
+        margin: 5px 21.2vw!important;
+        margin-bottom: 9px !important;
+    }
+
+    
+}
