@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import Cookies from "universal-cookie";
 import "./Join.css"
-
+import axios from "../../Axios/axios";
 
 import { Button, Grid, InputAdornment, TextField } from '@material-ui/core'
 import PersonIcon from '@material-ui/icons/Person';
@@ -22,7 +23,8 @@ export default class Join extends Component {
             error: {
                 email: "",
                 validPasssword: false,
-                confirmPassword: ""
+                confirmPassword: "",
+                authenication: ""
             },
             showPassword: false,
             showPasswordConditions: false
@@ -142,14 +144,37 @@ export default class Join extends Component {
 
         if (this.state.confirmPassword !== this.state.password) {
             err = "*Confirm password is not matching";
-        }else if (errors.email === "" && errors.validPasssword) {
-            console.log((errors.email === "" && errors.validPasssword && errors.confirmPassword === ""));
-            window.location.href = "/login";
+        } else if (errors.email === "" && errors.validPasssword) {
+            axios.post("/auth/register", {
+                email: this.state.email,
+                password: this.state.confirmPassword
+            }).then(res => {
+                console.log(res);
+                console.log(res.data.code);
+                // console.log(res.data.code === "500");
+                if (res.data.code === "500") {
+                    this.setState({ error: { ...this.state.error, authenication: res.data.err } })
+                }
+                if (res.data.code === 200) {
+                    const cookies = new Cookies();
+                    console.log(res.data.data.token);
+                    cookies.set('token', res.data.data.token, {
+                        path: '/',
+                        // maxAge: 1000 * 60,
+                        expiresIn: 60 * 15
+                    })
+                    window.location.href = "/home";
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }
 
         this.setState({
             error: { ...this.state.error, confirmPassword: err }
         })
+
+
 
     }
 
@@ -158,8 +183,8 @@ export default class Join extends Component {
             <div className="Join">
                 <div className="Join-main-div">
                     <h1 style={{ paddingTop: "15px" }} className="Join-h1">Join</h1>
-                    <div className="social-Join-btn"> <img className="social-Join-icon" src={GoogleIcon} alt="google-icon" /> Join with Google </div>
-                    <div className="social-Join-btn"> <img className="social-Join-icon" src={FacebookIcon} alt="facebook-icon" /> Join with Facebook </div>
+                    <div onClick={()=>{window.location.href='http://localhost:9000/auth/googleAuth'}} className="social-Join-btn"> <img className="social-Join-icon" src={GoogleIcon} alt="google-icon" /> Join with Google </div>
+                    <div onClick={()=>{window.location.href='http://localhost:9000/auth/fbAuth'}}className="social-Join-btn"> <img className="social-Join-icon" src={FacebookIcon} alt="facebook-icon" /> Join with Facebook </div>
                     <h1 style={{ padding: "0" }}>OR</h1>
                     <form onSubmit={this.handleSubmit}>
                         <div>
@@ -245,7 +270,10 @@ export default class Join extends Component {
                             <p className="error">{this.state.error.confirmPassword}</p>
 
                         </div>
-                        <Button id="join-submit-btn" type="submit" classes={{ root: "Join-submit-btn" }} style={{ margin: "5px 25vw 0" }}>Join</Button>
+                        {this.state.error.authenication === "" ?
+                            <Button id="join-submit-btn" type="submit" classes={{ root: "Join-submit-btn" }} style={{ margin: "5px 25vw 0" }}>Join</Button>
+                            : <p className="authentication-error">{this.state.error.authenication} try to login</p>
+                        }
                     </form>
                     <p className="login-p">Have an account?<a href="/login">Login</a></p>
                 </div>

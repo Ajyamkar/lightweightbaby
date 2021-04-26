@@ -76,6 +76,12 @@
     color: #8f4252 !important;
 }
 
+.login .error{
+    color: red;
+    margin: 0 16.2vw;
+    font-size: 10px;
+}
+
 .text-input{
     /* background-color: wheat !important; */
     margin: 5px 16.2vw !important;
@@ -88,6 +94,14 @@
     color: #8f4252;
     font-family: Roboto;
 }
+
+.authentication-error{
+    text-align: center;
+    color: red;
+    font-size: 16px;
+    font-weight: 600;
+}
+
 /* For Tablets */
 @media screen and (max-width:1024px) and (min-width:620px) {
     .login{
@@ -142,6 +156,12 @@
         color: white !important;
     }
 
+    .login .error{
+        color: red;
+        margin: 0 16.2vw;
+        font-size: 10px;
+    }
+
     .login-submit-btn {
         background: white !important;
         width: 39vw !important;
@@ -159,8 +179,14 @@
         color:wheat;
         font-family: Roboto;
     }
-}
 
+    .authentication-error{
+        text-align: center;
+        color: red;
+        font-size: 16px;
+        font-weight: 600;
+    }
+}
 
 /* For Desktops  */
 @media screen and (min-width:1025px) {
@@ -221,6 +247,12 @@
         color: #477f57 !important;
     }
 
+    .login .error{
+        color: red;
+        margin: 0 21.2vw;
+        font-size: 10px;
+    }
+
     .login-submit-btn {
         background: wheat !important;
         width: 30vw !important;
@@ -229,5 +261,11 @@
         margin-bottom: 9px !important;
     }
 
+    .authentication-error{
+        text-align: center;
+        color: red;
+        font-size: 16px;
+        font-weight: 600;
+    }
     
 }
