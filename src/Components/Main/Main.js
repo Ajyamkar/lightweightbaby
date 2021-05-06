@@ -5,7 +5,8 @@ import { Redirect, Route, Switch } from 'react-router'
 import Join from '../Authentication/Join/Join'
 import Login from '../Authentication/Login/Login'
 import Start from '../Start/Start'
-import Setup from '../Authentication/Setup/setup';
+import CookieSeter from '../Authentication/Setup/cookieSeter';
+import Setup from '../Authentication/Setup/Setup';
 
 export default class Main extends Component {
 
@@ -65,6 +66,7 @@ export default class Main extends Component {
                     <Route path="/home" component={Start} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/join" component={Join} />
+                    <Route exact path='/cookieSeter' component={CookieSeter} />
                     <Route exact path='/setup' component={Setup} />
                     <Redirect to="/home" />
                 </Switch>
