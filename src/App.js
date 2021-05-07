@@ -24,7 +24,8 @@ export default class App extends Component {
   randomPreloader() {
     const gifarr = [{ src: gif1, background: "#7363ab" },{ src: gif5, background: "rgb(148 62 102)" } , 
                     { src: gif3, background: "#f7f0e0" },{ src: gif4, background: "rgb(247 247 247)" },
-                    { src: gif6, background: "rgb(238 138 112)" },{ src: gif2, background: "white" }]
+                    { src: gif6, background: "rgb(238 138 112)" },{ src: gif2, background: "white" }];
+    // const beniftsArr = ['']
     const randomNo = Math.round(Math.random(0, 5) * 5);
     this.setState({ gifSrc: gifarr[randomNo].src, prelaoderBackground: gifarr[randomNo].background })
   }
