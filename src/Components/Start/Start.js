@@ -38,6 +38,9 @@ export default class Start extends Component {
             if (res.data.code === 500) {
                 window.location.href = "/login"
             }
+            if(!res.data.data.isSetupComplete){
+                window.location.href = "/setup"
+            }
             if (res.data.code === 200) {
                 this.setState({ ...this.state,isLoggedIn: true,userCredintials:res.data.data });
             }

@@ -18,6 +18,7 @@ import weightImg from '../../../Assets/weightImg.gif';
 import heightImg from '../../../Assets/man-woman-girl-measuring-height-260nw-1109435027.png';
 import vegOrNonVegImg from '../../../Assets/Veg-nonVegImg.png';
 import fitnessConditionImg from '../../../Assets/How-often-should-you-workoutexercise.png';
+// import Cookies from 'universal-cookie';
 
 export default class setup extends Component {
 
@@ -50,7 +51,7 @@ export default class setup extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleNextClick = this.handleNextClick.bind(this);
         this.handleBackClick = this.handleBackClick.bind(this);
-
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -59,6 +60,9 @@ export default class setup extends Component {
             token: cookies.get('token')
         }).then(res => {
             console.log(res);
+            if (res.data.data.isSetupComplete) {
+                window.location.href = "/home"
+            }
             this.setState({
                 ...this.state,
                 userCredentials: {
@@ -93,12 +97,12 @@ export default class setup extends Component {
         }
 
         if (name === 'weight') {
-            if (value <= 10 || value>=250) {
+            if (value <= 10 || value >= 250) {
                 weightErr = "*Invalid input"
             }
         }
 
-        if (name === 'height' && (value >= 250 || value <=110)) {
+        if (name === 'height' && (value >= 250 || value <= 110)) {
             ageErr = "*Invalid input"
         }
 
@@ -124,8 +128,6 @@ export default class setup extends Component {
         })
     }
 
-   handleKeyPress
-
     handleNextClick() {
         const count = (this.state.nextClickCount);
         let err = '';
@@ -143,21 +145,21 @@ export default class setup extends Component {
             })
         }
         else if (str === 'age') {
-            if(  !this.state.isTouched[str] || this.state.userCredentials[str] === "" || this.state.userCredentials[str] >= 70 || this.state.userCredentials[str]  <= 10)  
-            err = `*Invalid ${str} value`;
+            if (!this.state.isTouched[str] || this.state.userCredentials[str] === "" || this.state.userCredentials[str] >= 70 || this.state.userCredentials[str] <= 10)
+                err = `*Invalid ${str} value`;
         }
         else if (str === 'weight') {
-            if (this.state.userCredentials[str] <= 10 ||  this.state.userCredentials[str] >=250) {
+            if (this.state.userCredentials[str] <= 10 || this.state.userCredentials[str] >= 250) {
                 err = `*Invalid ${str} value`
-            }else{
-                err=''
+            } else {
+                err = ''
             }
         }
         else if (str === 'height') {
-            if (this.state.userCredentials[str] <= 110 || this.state.userCredentials[str] >= 250   ) {
+            if (this.state.userCredentials[str] <= 110 || this.state.userCredentials[str] >= 250) {
                 err = "*Invalid input"
-            }else{
-                err=''
+            } else {
+                err = ''
             }
         }
 
@@ -197,6 +199,20 @@ export default class setup extends Component {
         }
     }
 
+    handleSubmit(e) {
+        e.preventDefault();
+        const cookies = new Cookies();
+        axios.post('/auth/setup', {
+            userCredentials: this.state.userCredentials,
+            token: cookies.get('token')
+        }).then(result => {
+            console.log(result);
+            window.location.href = "/home";
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     render() {
         const name = this.state.userCredentials.Name;
         console.log(this.state);
@@ -206,11 +222,12 @@ export default class setup extends Component {
 
                 <p className='started-p'>Lets gets started</p>
                 <LinearProgress classes={{ root: "linear-progress-bar" }} variant="determinate" value={this.state.nextClickCount * 16.69} />
-                <form className='setup-main-form'>
+
+                <form  className='setup-main-form'>
                     <img className='inputArr-img' src={this.state.inputsArr[this.state.nextClickCount].inputImg} />
                     {this.state.nextClickCount !== 0 ?
                         <IconButton onClick={this.handleBackClick} classes={{ root: "back-icon-btn" }}>
-                            <KeyboardBackspaceOutlinedIcon style={{color: '#46549b'}} fontSize='large' />
+                            <KeyboardBackspaceOutlinedIcon style={{ color: '#46549b' }} fontSize='large' />
                         </IconButton>
                         : null
                     }
@@ -262,7 +279,7 @@ export default class setup extends Component {
                         <OutlinedInput
                             id="outlined-adornment-weight"
                             value={this.state.userCredentials.weight}
-                            type = 'number'
+                            type='number'
                             onChange={this.handleChange}
                             name='weight'
                             endAdornment={<InputAdornment position="end">Kg</InputAdornment>}
@@ -278,7 +295,7 @@ export default class setup extends Component {
                         <OutlinedInput
                             id="outlined-adornment-weight"
                             value={this.state.userCredentials.height}
-                            type = 'number'
+                            type='number'
                             onChange={this.handleChange}
                             name='height'
                             endAdornment={<InputAdornment position="end">cm</InputAdornment>}
@@ -310,7 +327,7 @@ export default class setup extends Component {
                     <FormControl component="fieldset" className='vegOrNonVeg-input-arr' style={{ display: 'none' }}>
                         <FormLabel classes={{ root: "formLabel-root" }} component="legend">Are you</FormLabel>
                         <RadioGroup aria-label="vegOrNonVeg" name="vegOrNonVeg" value={this.state.userCredentials.vegOrNonVeg} onChange={this.handleChange}>
-                            <FormControlLabel value="Veg" control={<Radio style={{color:'green'}} />} label="Veg" />
+                            <FormControlLabel value="Veg" control={<Radio style={{ color: 'green' }} />} label="Veg" />
                             <FormControlLabel value="Non-Veg" control={<Radio classes={{ root: "non-veg-radio" }} />} label="Non-Veg" />
                         </RadioGroup>
                     </FormControl>
@@ -318,7 +335,7 @@ export default class setup extends Component {
                     <p className='error-p'>{this.state.errors.age}</p>
                     <p className='error-p'>{this.state.errors.weight}</p>
                     {this.state.nextClickCount === this.state.inputsArr.length - 1 ?
-                        <Button classes={{ root: "next-btn" }}>Submit</Button>
+                        <Button  onClick={this.handleSubmit} classes={{ root: "next-btn" }}>Submit</Button>
                         : <Button onClick={this.handleNextClick} classes={{ root: "next-btn" }}>Next</Button>
                     }
 
