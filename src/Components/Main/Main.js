@@ -6,7 +6,7 @@ import Join from '../Authentication/Join/Join'
 import Login from '../Authentication/Login/Login'
 import Start from '../Start/Start'
 import CookieSeter from '../Authentication/Setup/cookieSeter';
-import Setup from '../Authentication/Setup/Setup';
+import Setup from '../Authentication/Setup/setup';
 
 export default class Main extends Component {
 
