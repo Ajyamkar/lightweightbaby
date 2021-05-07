@@ -1,0 +1,210 @@
+.setup{
+    width: 100vw;
+    height: 100vh;
+    background: url(../../../Assets/work.png);
+    background-position: -15vw top;
+    background-size: cover;
+    background-color: white;
+}
+
+.setup .started-p{
+    font-family: 'Roboto Slab', serif;
+    font-weight: 500;
+    font-size: xx-large;
+    /* text-align: center; */
+    margin-bottom: 0.5vh;
+}
+
+.setup .linear-progress-bar{
+    height: 6px !important;
+    background-color: rgb(226 234 238) !important;
+}
+
+.setup .MuiLinearProgress-bar{
+    border-radius: 2rem !important;
+    /* background-color: #FFE53B; */
+    /* background-image: linear-gradient(270deg, #FFE53B 0%, #FF2525 84%); */
+    background-image: linear-gradient(to right, #0589fe 14%, #00f2fe 92%);
+}
+
+.setup .setup-main-form{
+    width: 48vw;
+    float: right;
+    margin-right: 4vw;
+    margin-top: 1.5vh;
+    /* margin-top: 5vh; */
+}
+
+.setup .inputArr-img{
+    width: 32vw;
+    margin: 1vh 8vw 2vh;
+}
+
+.setup .name-text-input{
+    width: 48vw !important;
+    max-width: 50vw !important;
+}
+
+.setup .formLabel-root{
+    margin-bottom: 9px !important;
+}
+
+.setup .gender-radio{
+    color: green !important;
+    padding: 5px 9px !important;
+}
+
+.setup .non-veg-radio{
+    color: red !important;
+    padding: 5px 9px !important;
+}
+
+.setup .error-p{
+    color: red;
+    font-size: x-small;
+}
+
+.setup .next-btn{
+    margin-top: 2vh;
+    width: 48vw !important;
+    max-width: 50vw !important;
+    background-color: #48b0d2 !important;
+    color: white;
+}
+
+.setup .back-icon-btn{
+    position: absolute;
+    right: 0;
+    top: -1vh;
+}
+
+.setup .appName-p{
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100vw;
+    font-size: 8vw;
+    font-family: 'Arbutus';
+    margin-bottom: 4vh;
+}
+
+@media screen and (max-width:1024px) and (min-width:620px) {
+    .setup{
+        width: 100vw;
+        height: 100vh;
+        /* background-position: right top; */
+        background: bisque;
+        background: url(../../../Assets/professional-fitness-coach-with-training-plan-and-vector-18354020\(a4tWPqdd6Cc\).jpg);
+        background-size: cover;
+        background-position: center;
+    }
+
+    .setup .setup-main-form {
+        width: 48vw;
+        margin: 7vh 5vw;
+       float: left;
+    }
+
+    .setup .back-icon-btn {
+        position: absolute;
+        right: 0;
+        top: -0.5vh;
+    }
+
+    .setup .appName-p {
+        font-size: 6vw;
+        margin-bottom: 2vh;
+    }
+}
+
+@media screen and (min-width:1025px) {
+    .setup{
+        width: 100vw;
+        height: 100vh;
+        /* background: url(../../../Assets/How-often-should-you-workoutexercise.jpg); */
+        /* background: url(../../../Assets/setupBg1.png);
+        background: url(../../../Assets/setupBg1\(YNfUW7J7mfZ\).png); */
+        background:url(../../../Assets/workout-main.png) ;
+        background-size: cover;
+        background-position: center top;
+    }
+
+    .setup .started-p{
+        text-align: left;
+        /* margin-left: 6vw; */
+        margin-bottom: 1vh
+    }
+
+    .setup .linear-progress-bar{
+        height: 6px !important;
+        background-color: rgb(213 218 239) !important;
+    }
+
+    .setup .MuiLinearProgress-bar{
+        background-image: linear-gradient(to right, #0589fe 14%, #00f2fe 92%);
+        background-image: linear-gradient(to right, #504d76 14%, #8a8ba5  92%);
+    }
+
+    .setup .back-icon-btn{
+        position: absolute;
+        right: 0;
+        top: -1vh;
+    }
+
+    .setup .setup-main-form {
+        width: 20vw;
+        float: none;
+        margin: 0vh 2vw 0;
+    }
+
+    .setup .inputArr-img{
+        width: 15vw;
+        margin: 1vh 2.5vw 1vh;
+    }
+
+    .setup .name-text-input{
+        width: 20vw !important;
+        max-width: 30vw !important;
+        color: white !important;
+    }
+
+    .setup .gender-radio {
+        color: #26386c !important;
+        padding: 5px 9px !important;
+    }
+    
+    .setup .next-btn {
+        margin-top: 2vh;
+        width: 20vw !important;
+        max-width: 50vw !important;
+        color: white !important;
+        background-color: #26386c !important;
+    }
+
+    .setup .formLabel-root {
+        margin-bottom: 9px !important;
+        color: #eaebf0;
+        font-weight: 500;
+    }
+
+    .setup .appName-p{
+        font-size: 2vw;
+        /* margin-left: 6vw; */
+        margin-bottom: 1.5vh;
+        text-align: left;
+    }
+
+    /* https://www.sba.gov/sites/default/files/2018-04/BG_Choose_your_business_name_dba.png */
+
+    /* https://image.freepik.com/free-vector/gender-identity-concept_23-2148543072.jpg */
+    /* https://images.ctfassets.net/4f3rgqwzdznj/7H56Gw1uizvhg0wQRK1io1/ebe3e1b2ff5256d0c0702dae09474e9f/4_400.png */
+    
+    /* https://media.proprofs.com/images/QM/user_images/2165489/8749738959.jpg */
+    /* https://i.pinimg.com/originals/c3/91/cb/c391cb70e3aea29feb3a4374aa2d53f2.gif */
+    
+    /* https://imagesvc.meredithcorp.io/v3/mm/gif?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F12%2F2021%2F01%2F06%2FHow-long-does-it-take-to-lose-weight-1.gif */
+    /* https://www.localguidesconnect.com/t5/image/serverpage/image-id/416536i40A4B1D3228C2EEE?v=v2 */
+    /* https://i2.wp.com/smashingfifty.com/wp-content/uploads/2020/05/How-often-should-you-workoutexercise.jpg?fit=800%2C533&ssl=1 */
+
+
+}
