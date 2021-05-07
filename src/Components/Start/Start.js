@@ -36,7 +36,7 @@ export default class Start extends Component {
         }).then(res => {
             console.log(res);
             if (res.data.code === 500) {
-                window.location.href = "/login"
+                window.location.href = "https://ajyamkar.github.io/lightweightbaby/login"
             }
             if(!res.data.data.isSetupComplete){
                 window.location.href = "/setup"
