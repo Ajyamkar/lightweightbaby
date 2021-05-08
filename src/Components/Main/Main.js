@@ -24,7 +24,7 @@ export default class Main extends Component {
     componentDidMount() {
 
 
-        if (window.location.href === 'http://localhost:3000/login' || window.location.href === 'http://localhost:3000/join') {
+        if (window.location.href === 'https://thirsty-swanson-dbc0de.netlify.app/login' || window.location.href === 'https://thirsty-swanson-dbc0de.netlify.app/join') {
             const cookies = new Cookies();
             axios.post('/auth/me', {
                 token: cookies.get('token')
