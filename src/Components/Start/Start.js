@@ -46,7 +46,7 @@ export default class Start extends Component {
             }
         }).catch(err => {
             console.log(err);
-            window.location.href = "https://ajyamkar.github.io/lightweightbaby/login"
+            window.location.href = "/login"
         })
 
         this.setState({ ...this.state, isvarified: true })

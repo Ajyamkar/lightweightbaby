@@ -6,7 +6,7 @@ import Main from './Components/Main/Main';
 import gif1 from "./Assets/lift.gif";
 import gif2 from "./Assets/girlRunningGif.gif";
 import gif3 from "./Assets/jogging_run.gif";
-import gif4 from "./Assets/weightlifter.gif";
+import gif4 from "./Assets/Weightlifter.gif";
 import gif5 from "./Assets/girlPullUp.gif";
 import gif6 from "./Assets/chinup.gif";
 
