@@ -95,8 +95,8 @@ export default class Login extends Component {
             <div className="login">
                 <div className="login-main-div">
                     <h1 style={{ paddingTop: "15px" }} className="login-h1">Login</h1>
-                    <div onClick={()=>{window.location.href='https://light-weight-baby.herokuapp.com/auth/googleAuth?forLogin=true'}} className="social-login-btn"> <img className="social-login-icon" src={GoogleIcon} alt="google-icon" /> Login with Google </div>
-                    <div onClick={()=>{window.location.href='https://light-weight-baby.herokuapp.com/auth/fbAuth?forLogin=true'}} className="social-login-btn"> <img className="social-login-icon" src={FacebookIcon} alt="facebook-icon" /> Login with Facebook </div>
+                    <div onClick={()=>{window.location.href='http://localhost:9000/auth/googleAuth?forLogin=true'}} className="social-login-btn"> <img className="social-login-icon" src={GoogleIcon} alt="google-icon" /> Login with Google </div>
+                    <div onClick={()=>{window.location.href='http://localhost:9000/auth/fbAuth?forLogin=true'}} className="social-login-btn"> <img className="social-login-icon" src={FacebookIcon} alt="facebook-icon" /> Login with Facebook </div>
                     <h1 style={{ padding: "0" }}>OR</h1>
                     <form onSubmit={this.handleSubmit}>
                         <div>
