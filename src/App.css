@@ -36,7 +36,9 @@
 /* for screen greater than mobile width */
 @media screen and (min-width : 450px) {
   .loader-heading{
-    top: 7vh;
+    top: unset;
+    bottom: 2vh !important;
+    left: 2vw;
     font-size: xx-large;
   }
 }
