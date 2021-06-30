@@ -1,0 +1,17 @@
+.brand-heading-div{
+    display: flex;
+    flex-grow: 1;
+    margin-right: 2.5vw;
+}
+
+.logo-img{
+    margin-right: 2px;
+}
+
+.brand-heading{
+ text-align: center !important;
+}
+
+.moreMenu{
+    background: black !important;
+}

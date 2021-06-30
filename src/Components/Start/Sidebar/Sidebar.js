@@ -1,6 +1,16 @@
-import React from 'react'
-import logoImg from "../../Assets/logo192.png";
-import { Redirect, Route, Switch } from 'react-router'
+import React from 'react';
+import './Sidebar.css';
+import OurAppbar from './OurAppbar/OurAppbar';
+import logoImg from "../../../Assets/logo192.png";
+import { Redirect, Route, Switch } from 'react-router';
+
+import SidebarItemList from './OurAppbar/SidebarItemList';
+import Dashboard from '../../Content/Dashboard/Dashboard';
+import Workout from "../../Content/Workout/Workout";
+import WorkoutTracker from "../../Content/WorkoutTracker/WorkoutTracker";
+import Diet from "../../Content/Diet/Diet";
+import CalorieCounter from "../../Content/CalorieCounter/CalorieCounter";
+import AaisKitchen from "../../Content/AaisKitchen/AaisKitchen";
 
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -39,21 +49,20 @@ const useStyles = makeStyles((theme) => ({
     //         marginLeft: drawerWidth,
     //     },
     // },
-    // menuButton: {
-    //     marginRight: theme.spacing(2),
-    //     [theme.breakpoints.up('sm')]: {
-    //         display: 'none',
-    //     },
-    // },
+    menuButton: {
+        marginRight: theme.spacing(2),
+
+    },
     // // necessary for content to be below app bar
     // toolbar: theme.mixins.toolbar,
     // drawerPaper: {
     //     width: drawerWidth,
     // },
-    // content: {
-    //     flexGrow: 1,
-    //     padding: theme.spacing(3),
-    // },
+    content: {
+        // flexGrow: 1,
+        marginTop: theme.spacing(8),
+        // padding: theme.spacing(3),
+    },
 
     list: {
         width: 250,
@@ -83,20 +92,11 @@ const items = [
 
 export default function Sidebar(props) {
 
-    const PageOrders = () => (
-        <div>
-            Why do we use it?
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-            Why do we use it?
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-        </div>
-    )
-    const PageCustomers = () => <Typography variant="h3" component="h1">Customers Page</Typography>
-    const Dashboard = () => <><h1>HOme</h1>
-        <img src={logoImg} />
-        <img src={props.userCredintials.profile_picture} />
-        <button onClick={props.logOut} >Logout</button>
-    </>
+    const DashboardComponent = () => <Dashboard
+        userCredintials={props.userCredintials}
+        logOut={props.logOut}
+    />
+
 
     const { window } = props;
     const classes = useStyles();
@@ -112,7 +112,7 @@ export default function Sidebar(props) {
             {/* <div className={classes.toolbar} />
             <Divider /> */}
             <List>
-                {items.map((item, index) => (
+                {SidebarItemList.map((item, index) => (
                     <ListItem button key={item.name} component={NavLink} to={item.link}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={item.name} />
@@ -127,22 +127,20 @@ export default function Sidebar(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
+            <AppBar position="fixed" classes={{ root: "main-appbar-div" }}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
-                        // onClick={props.handleDrawerToggle}
                         onClick={props.toggleDrawer(anchor, true)}
                         className={classes.menuButton}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img src={logoImg} width="30px" />
-                    <Typography variant="h6" noWrap>
-                        Light weight baby
-                    </Typography>
+                    <OurAppbar
+                        userProfilePic={props.userCredintials.profile_picture}
+                    />
                 </Toolbar>
             </AppBar>
             <Drawer anchor='left' open={props.anchor} onClose={props.toggleDrawer(anchor, false)}>
@@ -184,12 +182,15 @@ export default function Sidebar(props) {
 
                 {/* <Container > */}
 
-                    <Switch>
-                        <Route path="/dashboard" component={Dashboard} />
-                        <Route exact path="/orders" component={PageOrders} />
-                        <Route exact path="/customers" component={PageCustomers} />
-                        <Redirect to="/dashboard" />
-                    </Switch>
+                <Switch>
+                    <Route path="/dashboard" component={DashboardComponent} />
+                    <Route exact path="/workout" component={Workout} />
+                    <Route exact path="/workoutTracker" component={WorkoutTracker} />
+                    <Route exact path="/diet" component={Diet} />
+                    <Route exact path="/calorieCounter" component={CalorieCounter} />
+                    <Route exact path="/aaisKitchen" component={AaisKitchen} />
+                    <Redirect to="/dashboard" />
+                </Switch>
 
                 {/* </Container> */}
 

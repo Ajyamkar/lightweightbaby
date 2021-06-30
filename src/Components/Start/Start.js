@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import axios from '../Axios/axios';
-import Sidebar from './Sidebar';
+import Sidebar from './Sidebar/Sidebar';
 
 export default class Start extends Component {
     constructor(props) {
