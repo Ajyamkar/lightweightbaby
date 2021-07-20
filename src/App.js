@@ -14,6 +14,38 @@ import gif3 from "./Assets/jogging_run.gif";
 import gif4 from "./Assets/Weightlifter.gif";
 import gif5 from "./Assets/girlPullUp.gif";
 import gif6 from "./Assets/chinup.gif";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+
+
+const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 620,
+      md: 1024,
+      lg: 1440,
+      xl: 1920
+    }
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*::-webkit-scrollbar': {
+          width:'4px',
+          height: '10px'
+        },
+        '*::-webkit-scrollbar-track': {
+          '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: 'black',
+          outline: ' 3px solid #f1f1f1',
+          borderRadius:"2rem"
+        }
+      }
+    }
+  }
+})
 
 export default class App extends Component {
 
@@ -70,26 +102,29 @@ export default class App extends Component {
 
     return (
       <BrowserRouter>
-        <div className="App">
-          
-          <div id="loader" style={{ background: this.state.prelaoderBackground }} >
-            <p style={{ position: "absolute" }} className="loader-heading">Light Weight Baby</p>
-            <img id="preloader-img" src={this.state.gifSrc} alt="gif" style={{ width: "100vw" }} />
-          </div>
+        <MuiThemeProvider theme={theme} >
+          <div className="App">
 
-          <div id="main" style={{ display: "none" }}>
-            <Switch >
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/join" component={Join} />
-              <Route exact path='/cookieSeter' component={CookieSeter} />
-              <Route exact path='/setup' component={Setup} />
-              <Route path="/" component={Start} />
-              <Redirect to='/' />
-            </Switch>
-          </div>
+            <div id="loader" style={{ background: this.state.prelaoderBackground }} >
+              <p style={{ position: "absolute" }} className="loader-heading">Light Weight Baby</p>
+              <img id="preloader-img" src={this.state.gifSrc} alt="gif" style={{ width: "100vw" }} />
+            </div>
 
-        </div>
+            <div id="main" style={{ display: "none" }}>
+              <Switch >
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/join" component={Join} />
+                <Route exact path='/cookieSeter' component={CookieSeter} />
+                <Route exact path='/setup' component={Setup} />
+                <Route path="/" component={Start} />
+                <Redirect to='/' />
+              </Switch>
+            </div>
+
+          </div>
+        </MuiThemeProvider>
       </BrowserRouter>
+
 
     )
   }

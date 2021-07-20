@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import "./Join.css"
 import axios from "../../Axios/axios";
 
-import { Button, Grid, InputAdornment, TextField } from '@material-ui/core'
+import { Button, InputAdornment, TextField } from '@material-ui/core'
 import PersonIcon from '@material-ui/icons/Person';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';

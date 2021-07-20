@@ -1,10 +1,9 @@
 import React from 'react';
 import './Sidebar.css';
 import OurAppbar from './OurAppbar/OurAppbar';
-import logoImg from "../../../Assets/logo192.png";
 import { Redirect, Route, Switch } from 'react-router';
 
-import SidebarItemList from './OurAppbar/SidebarItemList';
+import SidebarItemList from './SidebarItemList';
 import Dashboard from '../../Content/Dashboard/Dashboard';
 import Workout from "../../Content/Workout/Workout";
 import WorkoutTracker from "../../Content/WorkoutTracker/WorkoutTracker";
@@ -14,9 +13,7 @@ import AaisKitchen from "../../Content/AaisKitchen/AaisKitchen";
 
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
@@ -26,42 +23,30 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
-import { Container } from '@material-ui/core';
 
-const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
-    // root: {
-    //     display: 'flex',
-    // },
-    // drawer: {
-    //     [theme.breakpoints.up('sm')]: {
-    //         width: drawerWidth,
-    //         flexShrink: 0,
-    //     },
-    // },
-    // appBar: {
-    //     [theme.breakpoints.up('sm')]: {
-    //         width: `calc(100% - ${drawerWidth}px)`,
-    //         marginLeft: drawerWidth,
-    //     },
-    // },
+
     menuButton: {
         marginRight: theme.spacing(2),
-
+        [theme.breakpoints.down('xs')]: {
+            marginRight: '0'
+        },
     },
-    // // necessary for content to be below app bar
-    // toolbar: theme.mixins.toolbar,
-    // drawerPaper: {
-    //     width: drawerWidth,
-    // },
+
     content: {
-        // flexGrow: 1,
-        marginTop: theme.spacing(8),
-        // padding: theme.spacing(3),
+
+        [theme.breakpoints.down('xs')]: {
+            margin: '64px 16px 0'
+        },
+        [theme.breakpoints.between('sm', 'sm')]: {
+            margin: '64px 32px 0'
+        },
+        [theme.breakpoints.up('md')]: {
+            margin: '64px 48px 0'
+        },
     },
 
     list: {
@@ -72,24 +57,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const items = [
-    {
-        name: 'Dashboard',
-        link: '/dashboard',
-        //   Icon: IconDashboard,
-    },
-    {
-        name: 'Orders',
-        link: '/orders',
-        //   Icon: IconShoppingCart,
-    },
-    {
-        name: 'Customers',
-        link: '/customers',
-        //   Icon: IconPeople,
-    }
-]
-
 export default function Sidebar(props) {
 
     const DashboardComponent = () => <Dashboard
@@ -97,10 +64,7 @@ export default function Sidebar(props) {
         logOut={props.logOut}
     />
 
-
-    const { window } = props;
     const classes = useStyles();
-    const theme = useTheme();
 
     const drawer = (anchor) => (
         <div
@@ -109,8 +73,6 @@ export default function Sidebar(props) {
             onClick={props.toggleDrawer(anchor, false)}
             onKeyDown={props.toggleDrawer(anchor, false)}
         >
-            {/* <div className={classes.toolbar} />
-            <Divider /> */}
             <List>
                 {SidebarItemList.map((item, index) => (
                     <ListItem button key={item.name} component={NavLink} to={item.link}>
@@ -122,7 +84,6 @@ export default function Sidebar(props) {
         </div>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
     const anchor = 'left';
     return (
         <div className={classes.root}>
@@ -147,41 +108,7 @@ export default function Sidebar(props) {
                 {drawer(anchor)}
             </Drawer>
 
-            {/* <nav className={classes.drawer} aria-label="mailbox folders">
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={props.mobileOpen}
-                        onClose={props.handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav> */}
-
             <main className={classes.content}>
-
-                {/* <Container > */}
-
                 <Switch>
                     <Route path="/dashboard" component={DashboardComponent} />
                     <Route exact path="/workout" component={Workout} />
@@ -191,11 +118,6 @@ export default function Sidebar(props) {
                     <Route exact path="/aaisKitchen" component={AaisKitchen} />
                     <Redirect to="/dashboard" />
                 </Switch>
-
-                {/* </Container> */}
-
-
-
             </main>
 
         </div>

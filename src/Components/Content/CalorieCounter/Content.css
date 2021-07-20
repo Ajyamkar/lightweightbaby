@@ -1,0 +1,107 @@
+.calorieCounter-main-div{
+    background: url("./Images/pattern-background.png");
+    background-attachment: fixed;
+}
+
+.calorieCounter-main-div .top-heading{
+    text-align: center;
+    padding-top: 2vh;
+    margin-bottom: 1.5vh;
+    font-size: 12vw;
+}
+
+.calorieCounter-main-div .Accordian{
+    margin: 2vh 0 !important;
+}
+
+.calorieCounter-main-div .accordion-expandIcon{
+    font-size: 3rem !important;
+    color: green;
+}
+
+.content-div{
+    width: 100%;
+}
+
+.content-div .addFabIcon{
+    background: #407701;
+    margin-right:5vw;
+}
+
+.content-div .addFabIcon:hover{
+    background: #b2ff59;
+}
+
+.content-div .calories-table-div{
+    /* width:92.5vw; */
+    margin:2vh 0;
+}
+
+.content-div .tabletitleDiv{
+    /* background: #e6dece; */
+    background: seagreen;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+    margin: auto;
+    /* border: 1px solid gainsboro; */
+    border-bottom: 0;
+    position: relative;
+    top: 1.5px;
+    z-index: 1;
+}
+
+.content-div .MuiFormLabel-root.Mui-focused{
+    color: black !important;
+}
+
+.content-div .MuiInput-underline:after{
+    border-bottom: 2px solid black !important;
+}
+
+.content-div .MuiDataGrid-root{
+    border-radius: 0 0 4px 4px !important;
+    background: snow;
+}
+ 
+
+.content-div .MuiAccordionDetails-root{
+    display: block;
+}
+
+.content-div .macronutritents-heading{
+    margin: 0 2px 1vh;
+}
+
+.content-div .micronutritents-heading{
+    margin: 3vh 2px 1vh;
+}
+
+.content-div .error{
+    color: red;
+    text-align: center;
+    margin: -20px 0 0 2.6rem;
+}
+
+@media screen and (max-width:1024px) and (min-width:620px) {
+
+    .calorieCounter-main-div .top-heading{
+        font-size: 3rem;
+    }
+
+    .content-div .addFabIcon{
+        margin-right:3vw;
+    }
+    
+}
+
+@media screen and (min-width:1025px) {
+
+    .calorieCounter-main-div .top-heading{
+        font-size: 3rem;
+    }
+
+    .content-div .addFabIcon{
+        margin-right:1.5vw;
+    }
+
+}
