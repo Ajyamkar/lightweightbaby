@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import "./Content.css";
 import api from "../../Axios/axios";
 import Content from './Content';
-import Columns from './NutritionColumnsList';
-import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import Columns from './Lists/NutritionColumnsList';
+import Cookies from 'universal-cookie';
+import { Accordion, AccordionSummary, AccordionDetails, Button, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import NutritionBasic from './NutritionBasic';
+import TotalNutrientsOfWholeDay from './TotalNutrientsOfWholeDay';
+
+
+const mealArr = ['Breakfast', 'MorningSnack', 'Lunch', 'EveningSnack', 'Dinner'];
 
 export default class CalorieCounter extends Component {
     constructor(props) {
@@ -64,7 +69,30 @@ export default class CalorieCounter extends Component {
         this.toSetSnackbar = this.toSetSnackbar.bind(this);
         this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
         this.handleExpandAccordian = this.handleExpandAccordian.bind(this);
+        this.saveMealData = this.saveMealData.bind(this);
+    }
 
+    componentDidMount() {
+        const cookie = new Cookies();
+        console.log(cookie.get('token'));
+
+        api.post('/saveMealsData/getSavedMealsData', {
+            token: cookie.get('token')
+        }).then(data => {
+            console.log(data);
+
+            this.setState({
+                ...this.state,
+                nutritionRow: data.data
+            })
+
+            mealArr.map(meal => {
+                this.sumOfIndividualNutrientsForAMeal(this.state.nutritionRow, meal, false);
+            })
+
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     handleChange(e) {
@@ -113,8 +141,8 @@ export default class CalorieCounter extends Component {
                 this.toSetErorrs('ingridentDataNotFound', '');
             }
 
-            console.log(this.state.nutritionRow[meal].length);
-            console.log(this.state)
+            // console.log(this.state.nutritionRow[meal].length);
+            // console.log(this.state)
             this.addNewRow({
                 id: this.state.nutritionRow[meal].length + 1,
                 foodItem: this.state[meal],
@@ -144,7 +172,7 @@ export default class CalorieCounter extends Component {
                 [meal]: ''
             })
             this.sumOfIndividualNutrientsForAMeal(this.state.nutritionRow, meal, false);
-            
+
 
         }).catch(err => {
             console.log(err);
@@ -238,12 +266,12 @@ export default class CalorieCounter extends Component {
                 }
             })
 
-            console.log("protein=" + protein);
-            console.log("cal=" + calories);
-            console.log("carbs=" + carbs);
-            console.log("fats=" + fats);
-            console.log("sugar=" + sugar);
-            console.log(this.state.totalNutrientsForAMeal);
+            // console.log("protein=" + protein);
+            // console.log("cal=" + calories);
+            // console.log("carbs=" + carbs);
+            // console.log("fats=" + fats);
+            // console.log("sugar=" + sugar);
+            // console.log(this.state.totalNutrientsForAMeal);
         }, 1000)
 
 
@@ -276,7 +304,6 @@ export default class CalorieCounter extends Component {
     }
 
     toSetErorrs(errName, errMsg) {
-        console.log(errName + " " + errMsg);
         this.setState({
             ...this.state,
             errors: {
@@ -300,8 +327,8 @@ export default class CalorieCounter extends Component {
         this.toSetSnackbar(false);
     };
 
-    handleExpandAccordian(meal){
-        return function (event,isExpanded) {   
+    handleExpandAccordian(meal) {
+        return function (event, isExpanded) {
             this.setState({
                 ...this.state,
                 expandAccordian: isExpanded ? meal : false
@@ -309,19 +336,41 @@ export default class CalorieCounter extends Component {
         }.bind(this);
     }
 
+    saveMealData() {
+        const cookie = new Cookies();
+        const token = cookie.get('token');
+
+        api.post('/saveMealsData/', {
+            token: token,
+            allMealsData: this.state.nutritionRow
+        }).then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        })
+
+        // api.post('/auth/me',{
+        //     token:token
+        // }).then(result=>{
+        //     res.data.data.
+        // })
+    }
+
     render() {
+
         return (
             <div className="calorieCounter-main-div">
                 <h1 className="top-heading">Calorie Counter</h1>
-                {(['Breakfast', 'MorningSnack', 'Lunch', 'EveningSnack', 'Dinner']).map((meal, index) => {
+
+                {mealArr.map((meal, index) => {
                     return <Accordion
                         key={index}
                         expanded={this.state.expandAccordian === meal}
                         onChange={this.handleExpandAccordian(meal)}
                         className={"Accordian"}
-                        >
+                    >
                         <AccordionSummary
-                            expandIcon={this.state.expandAccordian === meal ? <RemoveIcon className='accordion-expandIcon' style={{color:'red'}} /> : <AddIcon className='accordion-expandIcon' fontSize='large'/>}
+                            expandIcon={this.state.expandAccordian === meal ? <RemoveIcon className='accordion-expandIcon' style={{ color: 'red' }} /> : <AddIcon className='accordion-expandIcon' fontSize='large' />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
@@ -336,6 +385,7 @@ export default class CalorieCounter extends Component {
                         <AccordionDetails>
                             <Content
                                 key={index}
+                                index={index}
                                 mealName={meal}
                                 ingrident={this.state[meal]}
                                 errors={this.state.errors}
@@ -358,6 +408,34 @@ export default class CalorieCounter extends Component {
                     </Accordion>
 
                 })}
+
+                {/* <Accordion
+                    expanded={this.state.expandAccordian === "totalNutrients"}
+                    onChange={this.handleExpandAccordian("totalNutrients")}
+                    className={"Accordian"}
+                >
+                    <AccordionSummary
+                        expandIcon={this.state.expandAccordian === "totalNutrients" ? <RemoveIcon className='accordion-expandIcon' style={{ color: 'red' }} /> : <AddIcon className='accordion-expandIcon' fontSize='large' />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <h1>ALL Meals Nutritents</h1>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <h2>Total calories consumed = {sum} </h2>
+                    </AccordionDetails>
+                </Accordion> */}
+
+                <TotalNutrientsOfWholeDay
+                    expandAccordian={this.state.expandAccordian}
+                    handleExpandAccordian={this.handleExpandAccordian}
+                    totalNutrients={this.state.totalNutrientsForAMeal}
+                    mealArr={mealArr}
+                />
+
+                <div style={{textAlign:'center'}}>
+                    <Button className={'save-meal-data-btn'} onClick={this.saveMealData}> Save Meal Data</Button>
+                </div>
 
                 <NutritionBasic />
 

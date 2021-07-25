@@ -1,6 +1,6 @@
 import React from 'react';
 import "./NutritionBasic.css";
-import MacroDefination from './MacroDefinationList';
+import MacroDefination from './Lists/MacroDefinationList';
 import { Grid, Box, Container } from '@material-ui/core';
 
 export default function NutritionBasic() {

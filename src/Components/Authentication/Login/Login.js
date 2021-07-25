@@ -76,7 +76,7 @@ export default class Login extends Component {
                     cookies.set('token', result.data.data.token, {
                         path: '/',
                         // maxAge: 1000 * 30,
-                        expiresIn: 60*15
+                        expiresIn: 60*60
                     })
                     window.location.href = "/"
                 }

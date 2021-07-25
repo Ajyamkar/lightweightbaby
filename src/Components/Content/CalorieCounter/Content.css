@@ -19,6 +19,14 @@
     color: green;
 }
 
+.calorieCounter-main-div .save-meal-data-btn{
+    background: seagreen !important;
+    padding: 6px 33px !important;
+    color: white !important;
+    margin-top: 2vh;
+    font-size: 1.2rem !important;
+}
+
 .content-div{
     width: 100%;
 }
@@ -68,12 +76,20 @@
     display: block;
 }
 
-.content-div .macronutritents-heading{
+.content-div .macronutritents-heading, .totalNutrientsOfWholeDay .macronutritents-heading{
     margin: 0 2px 1vh;
 }
 
-.content-div .micronutritents-heading{
+.content-div .micronutritents-heading, .totalNutrientsOfWholeDay .micronutritents-heading{
     margin: 3vh 2px 1vh;
+}
+
+.totalNutrientsOfWholeDay .Accordian{
+    margin: 2vh 0 !important;
+}
+
+.totalNutrientsOfWholeDay .MuiAccordionDetails-root{
+    display: block !important;
 }
 
 .content-div .error{

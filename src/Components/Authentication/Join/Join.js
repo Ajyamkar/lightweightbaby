@@ -161,7 +161,7 @@ export default class Join extends Component {
                     cookies.set('token', res.data.data.token, {
                         path: '/',
                         // maxAge: 1000 * 60,
-                        expiresIn: 60 * 15
+                        expiresIn: 60 * 60
                     })
                     window.location.href = "/home";
                 }
