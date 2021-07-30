@@ -19,6 +19,10 @@
     color: green;
 }
 
+.calorieCounter-main-div .save-and-showprevious-mealdata-btngrp-div{
+    text-align: center;
+}
+
 .calorieCounter-main-div .save-meal-data-btn{
     background: seagreen !important;
     padding: 6px 33px !important;
@@ -107,6 +111,12 @@
     .content-div .addFabIcon{
         margin-right:3vw;
     }
+
+    .calorieCounter-main-div .save-and-showprevious-mealdata-btngrp-div{
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+    }
     
 }
 
@@ -118,6 +128,12 @@
 
     .content-div .addFabIcon{
         margin-right:1.5vw;
+    }
+
+    .calorieCounter-main-div .save-and-showprevious-mealdata-btngrp-div{
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
     }
 
 }

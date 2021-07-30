@@ -2,7 +2,7 @@ import React from 'react';
 import "./Content.css";
 
 import { DataGrid } from "@material-ui/data-grid";
-import { Grid, IconButton} from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -16,11 +16,12 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { totalMacroNutritionCol, totalMicroNutritionCol } from './Lists/TotalNutritionColumnList';
+import PieChart from './Charts/PieChart';
 
 
 
 export default function Content(props) {
-   
+
     const totalMacroNutritionRow = [{
         id: 1,
         protein: props.totalNutrients.protein === undefined ? 0 : props.totalNutrients.protein,
@@ -107,7 +108,7 @@ export default function Content(props) {
                 </Grid>
                 <Grid item>
                     <TextField
-                        key = {props.index}
+                        key={props.index}
                         id="filled-textarea"
                         label="Enter only one food item"
                         placeholder="eg :50g chicken"
@@ -203,11 +204,11 @@ export default function Content(props) {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography style={{fontSize:"1.5rem"}}>Total Nutrients</Typography>
+                    <h1 style={{ fontSize: "1.5rem" }}>Analysis</h1>
 
                 </AccordionSummary>
                 <AccordionDetails>
-                    <h2 className={"macronutritents-heading"} style={{"color":"green"}}>Total calories consumed = {props.totalNutrients.totalCalories === undefined ? 0 : props.totalNutrients.totalCalories}kcal</h2>
+                    {/* <h2 className={"macronutritents-heading"} style={{ "color": "green" }}>Total calories consumed = {props.totalNutrients.totalCalories === undefined ? 0 : props.totalNutrients.totalCalories}kcal</h2> */}
                     <h2 className={"macronutritents-heading"}>Macro Nutritents</h2>
                     <DataGrid
                         rows={totalMacroNutritionRow}
@@ -225,6 +226,32 @@ export default function Content(props) {
                         hideFooterSelectedRowCount
                         hideFooter
                         autoHeight
+                    />
+
+                    <PieChart
+                        totalCalories={props.totalNutrients.totalCalories === undefined ? 0 : props.totalNutrients.totalCalories}
+                        pieChartName={`analysis of ${props.mealName}`}
+                        macrosValues={[
+                            props.totalNutrients.protein === undefined ? 0 : props.totalNutrients.protein,
+                            props.totalNutrients.carbs === undefined ? 0 : props.totalNutrients.carbs,
+                            props.totalNutrients.fats === undefined ? 0 : props.totalNutrients.fats,
+                            props.totalNutrients.sugar === undefined ? 0 : props.totalNutrients.sugar,
+                            // sumOfWater.toPrecision(4),
+                            // this.state.totalNutrientsForAMeals[meal].macroNutrients.water
+                        ]}
+
+                        microsValues={[
+                            props.totalNutrients.sodium === undefined ? 0 : props.totalNutrients.sodium,
+                            props.totalNutrients.potassium === undefined ? 0 : props.totalNutrients.potassium,
+                            props.totalNutrients.magnesium === undefined ? 0 : props.totalNutrients.magnesium,
+                            props.totalNutrients.calcium === undefined ? 0 : props.totalNutrients.calcium,
+                            props.totalNutrients.zinc === undefined ? 0 : props.totalNutrients.zinc,
+                            props.totalNutrients.iron === undefined ? 0 : props.totalNutrients.iron,
+                            props.totalNutrients.folate === undefined ? 0 : props.totalNutrients.folate,
+                            props.totalNutrients.vitaminB6 === undefined ? 0 : props.totalNutrients.vitaminB6,
+                            props.totalNutrients.vitaminC === undefined ? 0 : props.totalNutrients.vitaminC,
+                            props.totalNutrients.vitaminD === undefined ? 0 : props.totalNutrients.vitaminD,
+                        ]}
                     />
 
                 </AccordionDetails>

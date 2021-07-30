@@ -4,11 +4,13 @@ import api from "../../Axios/axios";
 import Content from './Content';
 import Columns from './Lists/NutritionColumnsList';
 import Cookies from 'universal-cookie';
-import { Accordion, AccordionSummary, AccordionDetails, Button, Grid } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, Button, Grid, Snackbar } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import NutritionBasic from './NutritionBasic';
 import TotalNutrientsOfWholeDay from './TotalNutrientsOfWholeDay';
+import Alert from '@material-ui/lab/Alert';
+import PreviousDataModal from './PreviousDataModal/PreviousDataModal';
 
 
 const mealArr = ['Breakfast', 'MorningSnack', 'Lunch', 'EveningSnack', 'Dinner'];
@@ -23,7 +25,8 @@ export default class CalorieCounter extends Component {
                 Dinner: "",
                 MorningSnack: "",
                 EveningSnack: "",
-                ingridentDataNotFound: ""
+                ingridentDataNotFound: "",
+                unableToSaveMealData: false
             },
             openSnackbar: false,
             expandAccordian: false,
@@ -55,7 +58,8 @@ export default class CalorieCounter extends Component {
                 Lunch: {},
                 EveningSnack: {},
                 Dinner: {}
-            }
+            },
+            showFeedbackForSavingData: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -344,16 +348,40 @@ export default class CalorieCounter extends Component {
             token: token,
             allMealsData: this.state.nutritionRow
         }).then(result => {
+            this.setState({
+                ...this.state,
+                errors: {
+                    ...this.state.errors,
+                    unableToSaveMealData: false
+                },
+                showFeedbackForSavingData: true
+            })
             console.log(result);
+
+            setTimeout(() => {
+                this.setState({
+                    ...this.state,
+                    showFeedbackForSavingData: false
+                })
+            }, 3000)
         }).catch(err => {
+            this.setState({
+                ...this.state,
+                errors: {
+                    ...this.state.errors,
+                    unableToSaveMealData: true
+                },
+                showFeedbackForSavingData: true
+            })
             console.log(err);
+            setTimeout(() => {
+                this.setState({
+                    ...this.state,
+                    showFeedbackForSavingData: false
+                })
+            }, 3000)
         })
 
-        // api.post('/auth/me',{
-        //     token:token
-        // }).then(result=>{
-        //     res.data.data.
-        // })
     }
 
     render() {
@@ -409,22 +437,6 @@ export default class CalorieCounter extends Component {
 
                 })}
 
-                {/* <Accordion
-                    expanded={this.state.expandAccordian === "totalNutrients"}
-                    onChange={this.handleExpandAccordian("totalNutrients")}
-                    className={"Accordian"}
-                >
-                    <AccordionSummary
-                        expandIcon={this.state.expandAccordian === "totalNutrients" ? <RemoveIcon className='accordion-expandIcon' style={{ color: 'red' }} /> : <AddIcon className='accordion-expandIcon' fontSize='large' />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        <h1>ALL Meals Nutritents</h1>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <h2>Total calories consumed = {sum} </h2>
-                    </AccordionDetails>
-                </Accordion> */}
 
                 <TotalNutrientsOfWholeDay
                     expandAccordian={this.state.expandAccordian}
@@ -433,8 +445,20 @@ export default class CalorieCounter extends Component {
                     mealArr={mealArr}
                 />
 
-                <div style={{textAlign:'center'}}>
+                <div className={'save-and-showprevious-mealdata-btngrp-div'}>
+                    {/* <Button style={{background:'black'}} className={'save-meal-data-btn'}>Show Previous Data</Button> */}
+                    <PreviousDataModal />
                     <Button className={'save-meal-data-btn'} onClick={this.saveMealData}> Save Meal Data</Button>
+                    <Snackbar open={this.state.showFeedbackForSavingData ? true : false} autoHideDuration={2000}>
+                        {this.state.errors.unableToSaveMealData ?
+                            <Alert variant="filled" severity="error">
+                                Unable to save data. Session expired please refresh the page.
+                            </Alert>
+                            :
+                            <Alert variant="filled" severity="success">
+                                Saved successfully
+                            </Alert>}
+                    </Snackbar>
                 </div>
 
                 <NutritionBasic />

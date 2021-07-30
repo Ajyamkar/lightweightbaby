@@ -4,7 +4,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
 import { totalMacroNutritionCol, totalMicroNutritionCol } from './Lists/TotalNutritionColumnList';
 import { DataGrid } from '@material-ui/data-grid';
-
+import PieChart from './Charts/PieChart';
 import "./Content.css";
 
 
@@ -12,8 +12,6 @@ export default function TotalNutrientsOfWholeDay(props) {
     let sumOfTotalCalories = 0, sumOfTotalProtiens = 0, sumOfTotalCarbs = 0, sumOfFats = 0, sumOfSugar = 0, sumOfWater = 0;
     let sumOfSodium = 0, sumOfPotassium = 0, sumOfMagnesium = 0, sumOfCalcium = 0, sumOfIron = 0, sumOfZinc = 0, sumOfFolate = 0, sumOfVitaminB6 = 0, sumOfVitaminC = 0, sumOfVitaminD = 0;
     let ans = props.mealArr.map((meal, index) => {
-        console.log(props.totalNutrients[meal].totalCalories);
-
         sumOfTotalCalories = Number(props.totalNutrients[meal].totalCalories === undefined ? 0 : props.totalNutrients[meal].totalCalories) + Number(sumOfTotalCalories);
         sumOfTotalProtiens = Number(props.totalNutrients[meal].protein === undefined ? 0 : props.totalNutrients[meal].protein) + Number(sumOfTotalProtiens);
         sumOfTotalCarbs = Number(props.totalNutrients[meal].carbs === undefined ? 0 : props.totalNutrients[meal].carbs) + Number(sumOfTotalCarbs);
@@ -54,7 +52,6 @@ export default function TotalNutrientsOfWholeDay(props) {
             };
         }
     });
-    console.log(ans);
 
     const totalMacroNutritionRow = [{
         id: 1,
@@ -92,10 +89,10 @@ export default function TotalNutrientsOfWholeDay(props) {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <h1>ALL Meals Nutritents</h1>
+                    <h1>Full analysis of all the meals</h1>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <h2 className={"macronutritents-heading"} style={{ "color": "green" }}>Total calories consumed = {sumOfTotalCalories}kcal</h2>
+                    {/* <h2 className={"macronutritents-heading"} style={{ "color": "green" }}>Total calories consumed = {sumOfTotalCalories}kcal</h2> */}
                     <h2 className={"macronutritents-heading"}>Macro Nutritents</h2>
                     <DataGrid
                         rows={totalMacroNutritionRow}
@@ -113,6 +110,31 @@ export default function TotalNutrientsOfWholeDay(props) {
                         hideFooterSelectedRowCount
                         hideFooter
                         autoHeight
+                    />
+                    <PieChart
+                        totalCalories={sumOfTotalCalories}
+                        pieChartName='Full analysis of nutrients'
+                        macrosValues={[
+                            sumOfTotalProtiens.toPrecision(4),
+                            sumOfTotalCarbs.toPrecision(4),
+                            sumOfFats.toPrecision(4),
+                            sumOfSugar.toPrecision(4),
+                            // sumOfWater.toPrecision(4),
+                            // this.state.totalNutrientsForAMeals[meal].macroNutrients.water
+                        ]}
+
+                        microsValues={[
+                            sumOfSodium.toPrecision(4),
+                            sumOfPotassium.toPrecision(4),
+                            sumOfMagnesium.toPrecision(4),
+                            sumOfCalcium.toPrecision(4),
+                            sumOfZinc.toPrecision(4),
+                            sumOfIron.toPrecision(4),
+                            sumOfFolate.toPrecision(4),
+                            sumOfVitaminB6.toPrecision(4),
+                            sumOfVitaminC.toPrecision(4),
+                            sumOfVitaminD.toPrecision(4),
+                        ]}
                     />
                 </AccordionDetails>
             </Accordion>
