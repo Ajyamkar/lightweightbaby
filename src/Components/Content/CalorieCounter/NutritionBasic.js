@@ -2,6 +2,7 @@ import React from 'react';
 import "./NutritionBasic.css";
 import MacroDefination from './Lists/MacroDefinationList';
 import { Grid, Box, Container } from '@material-ui/core';
+import MicroDefination from './Lists/MicroDefinationList';
 
 export default function NutritionBasic() {
     return (
@@ -51,14 +52,14 @@ export default function NutritionBasic() {
                 {MacroDefination.map(nutrient => {
                     return <div id={nutrient.nutritionName} className="macros-defination-div">
                         <h1>
-                            <a href={`#${nutrient.nutritionName}`}>{nutrient.nutritionName}</a>
+                            <a href={`#${nutrient.nutritionName}`} style={{color: '#551a8b'}}>{nutrient.nutritionName}</a>
                         </h1>
 
                         <Container className="macros-defination-div-Container">
                             <h2>Role in the Body:</h2>
                             <ol>
-                                {nutrient.role.map(role=>{
-                                   return <li>{role}</li>
+                                {nutrient.role.map(role => {
+                                    return <li>{role}</li>
                                 })}
                             </ol>
                         </Container>
@@ -66,8 +67,8 @@ export default function NutritionBasic() {
                         <Container className="macros-defination-div-Container">
                             <h2>Recommended Allowance:</h2>
                             <ul>
-                                {nutrient.recommendation.map(recommendation=>{
-                                   return <li>{recommendation}</li>
+                                {nutrient.recommendation.map(recommendation => {
+                                    return <li>{recommendation}</li>
                                 })}
                             </ul>
                         </Container>
@@ -79,16 +80,49 @@ export default function NutritionBasic() {
                         <Container className="macros-defination-div-Container">
                             <h2>Food Sources:</h2>
                             <ol>
-                                {nutrient.foodSources.map(foodSources=>{
-                                   return <li>{foodSources}</li>
+                                {nutrient.foodSources.map(foodSources => {
+                                    return <li>{foodSources}</li>
                                 })}
                             </ol>
                         </Container>
                     </div>
                 })}
 
-
                 <p> <strong className="initials">M</strong>icronutrients are those nutrients that the body needs in smaller amounts. But that doesn’t mean that micros are of any lesser importance. Micros are essential to our overall health and wellness. </p>
+                {MicroDefination.map(nutrient => {
+                    return <div id={nutrient.nutrientName} className="macros-defination-div">
+                        <h1>
+                            <a href={`#${nutrient.nutrientName}`} style={{color: '#551a8b'}}>{nutrient.nutrientName}</a>
+                        </h1>
+
+                        <Container className="macros-defination-div-Container">
+                            <h2>Role in the Body:</h2>
+                            <ol>
+                                {nutrient.function.map(role => {
+                                    return <li>{role}</li>
+                                })}
+                            </ol>
+                        </Container>
+
+                        <Container className="macros-defination-div-Container">
+                            <h2>Recommended Allowance:</h2>
+                            <ul>
+                                {nutrient.recommendaion.map(recommendation => {
+                                    return <li>{recommendation}</li>
+                                })}
+                            </ul>
+                        </Container>
+
+                        <Container className="macros-defination-div-Container">
+                            <h2>Food Sources:</h2>
+                            <ol>
+                                {nutrient.foodSources.map(foodSources => {
+                                    return <li>{foodSources}</li>
+                                })}
+                            </ol>
+                        </Container>
+                    </div>
+                })}
             </div>
         </div>
     )

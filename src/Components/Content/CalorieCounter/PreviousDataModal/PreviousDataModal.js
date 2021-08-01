@@ -79,7 +79,6 @@ export default class PreviousDataModal extends Component {
             dateChanged: true,
             selectedDate: date
         })
-        console.log(date);
         const cookie = new Cookies();
         const token = cookie.get('token');
 
@@ -87,7 +86,6 @@ export default class PreviousDataModal extends Component {
             token: token,
             selectedDate: date
         }).then(result => {
-            console.log(result);
             if (result.data.length !== 0) {
 
                 const breakfastNutritionData = {
@@ -182,7 +180,6 @@ export default class PreviousDataModal extends Component {
     };
 
     render() {
-        console.log(this.state);
         return (
             <div className={'previousDataModal-main-div'}>
                 <Button onClick={this.handleOpen} className={'previous-data-btn'}>
@@ -285,7 +282,7 @@ export default class PreviousDataModal extends Component {
 
                                         <h1 style={{ textAlign: 'center' }}>Full anaylsis Of Nutritents</h1>
                                         <div style={{margin:'2vh 0'}}>
-                                            <h1 className={"macro-full-anaylsis-heading"}>Macro Nutritents</h1>
+                                            <h2 className={"macro-full-anaylsis-heading"}>Macro Nutritents</h2>
                                             <DataGrid
                                                 rows={[
                                                     {

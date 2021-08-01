@@ -23,7 +23,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 
 
@@ -62,6 +62,10 @@ export default function Sidebar(props) {
     const DashboardComponent = () => <Dashboard
         userCredintials={props.userCredintials}
         logOut={props.logOut}
+    />
+
+    const CalorieCounterComponent = () => <CalorieCounter
+        userCredintials={props.userCredintials}
     />
 
     const classes = useStyles();
@@ -114,7 +118,7 @@ export default function Sidebar(props) {
                     <Route exact path="/workout" component={Workout} />
                     <Route exact path="/workoutTracker" component={WorkoutTracker} />
                     <Route exact path="/diet" component={Diet} />
-                    <Route exact path="/calorieCounter" component={CalorieCounter} />
+                    <Route exact path="/calorieCounter" component={CalorieCounterComponent} />
                     <Route exact path="/aaisKitchen" component={AaisKitchen} />
                     <Redirect to="/dashboard" />
                 </Switch>

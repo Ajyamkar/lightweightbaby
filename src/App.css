@@ -51,9 +51,8 @@ p,span{
 }
 
 .loader-heading{
-  position:"absolute";
   top: 22.5vh;
-  font-family: 'Arbutus', cursive;
+  font-family: 'Zen Dots', cursive;
   font-size: x-large;
   color: black;
 }
@@ -66,7 +65,7 @@ p,span{
 /* for screen greater than mobile width */
 @media screen and (min-width : 450px) {
   .loader-heading{
-    top: unset;
+    top: 2vh !important;
     bottom: 2vh !important;
     left: 2vw;
     font-size: xx-large;

@@ -93,49 +93,57 @@ export default function TotalNutrientsOfWholeDay(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* <h2 className={"macronutritents-heading"} style={{ "color": "green" }}>Total calories consumed = {sumOfTotalCalories}kcal</h2> */}
-                    <h2 className={"macronutritents-heading"}>Macro Nutritents</h2>
-                    <DataGrid
-                        rows={totalMacroNutritionRow}
-                        columns={totalMacroNutritionCol}
-                        hideFooterPagination
-                        hideFooterSelectedRowCount
-                        hideFooter
-                        autoHeight
-                    />
-                    <h2 className={"micronutritents-heading"}>Micro Nutritents</h2>
-                    <DataGrid
-                        rows={totalMicroNutritionRow}
-                        columns={totalMicroNutritionCol}
-                        hideFooterPagination
-                        hideFooterSelectedRowCount
-                        hideFooter
-                        autoHeight
-                    />
-                    <PieChart
-                        totalCalories={sumOfTotalCalories}
-                        pieChartName='Full analysis of nutrients'
-                        macrosValues={[
-                            sumOfTotalProtiens.toPrecision(4),
-                            sumOfTotalCarbs.toPrecision(4),
-                            sumOfFats.toPrecision(4),
-                            sumOfSugar.toPrecision(4),
-                            // sumOfWater.toPrecision(4),
-                            // this.state.totalNutrientsForAMeals[meal].macroNutrients.water
-                        ]}
 
-                        microsValues={[
-                            sumOfSodium.toPrecision(4),
-                            sumOfPotassium.toPrecision(4),
-                            sumOfMagnesium.toPrecision(4),
-                            sumOfCalcium.toPrecision(4),
-                            sumOfZinc.toPrecision(4),
-                            sumOfIron.toPrecision(4),
-                            sumOfFolate.toPrecision(4),
-                            sumOfVitaminB6.toPrecision(4),
-                            sumOfVitaminC.toPrecision(4),
-                            sumOfVitaminD.toPrecision(4),
-                        ]}
-                    />
+                    {sumOfTotalCalories === 0 ?
+                        <p>Enter food item you had. In order to show analysis. </p> :
+                        <div>
+                            <h2 className={"macronutritents-heading"}>Macro Nutritents</h2>
+                            <DataGrid
+                                rows={totalMacroNutritionRow}
+                                columns={totalMacroNutritionCol}
+                                hideFooterPagination
+                                hideFooterSelectedRowCount
+                                hideFooter
+                                autoHeight
+                            />
+                            <h2 className={"micronutritents-heading"}>Micro Nutritents</h2>
+                            <DataGrid
+                                rows={totalMicroNutritionRow}
+                                columns={totalMicroNutritionCol}
+                                hideFooterPagination
+                                hideFooterSelectedRowCount
+                                hideFooter
+                                autoHeight
+                            />
+                            <PieChart
+                                totalCalories={sumOfTotalCalories}
+                                pieChartName='Full analysis of nutrients'
+                                macrosValues={[
+                                    sumOfTotalProtiens.toPrecision(4),
+                                    sumOfTotalCarbs.toPrecision(4),
+                                    sumOfFats.toPrecision(4),
+                                    sumOfSugar.toPrecision(4),
+                                    // sumOfWater.toPrecision(4),
+                                    // this.state.totalNutrientsForAMeals[meal].macroNutrients.water
+                                ]}
+
+                                microsValues={[
+                                    sumOfSodium.toPrecision(4),
+                                    sumOfPotassium.toPrecision(4),
+                                    sumOfMagnesium.toPrecision(4),
+                                    sumOfCalcium.toPrecision(4),
+                                    sumOfZinc.toPrecision(4),
+                                    sumOfIron.toPrecision(4),
+                                    sumOfFolate.toPrecision(4),
+                                    sumOfVitaminB6.toPrecision(4),
+                                    sumOfVitaminC.toPrecision(4),
+                                    sumOfVitaminD.toPrecision(4),
+                                ]}
+                            />
+                        </div>
+                    }
+
+
                 </AccordionDetails>
             </Accordion>
         </div>

@@ -10,8 +10,18 @@
     font-size: 12vw;
 }
 
+.calorieCounter-main-div .mainteneanceCalories-h2{
+    text-align: center;
+    color: seagreen;
+}
+
 .calorieCounter-main-div .Accordian{
     margin: 2vh 0 !important;
+}
+
+.calorieCounter-main-div .MuiAccordionSummary-content{
+    justify-content: space-between !important;
+    align-items: baseline !important;
 }
 
 .calorieCounter-main-div .accordion-expandIcon{
@@ -50,12 +60,10 @@
 }
 
 .content-div .tabletitleDiv{
-    /* background: #e6dece; */
     background: seagreen;
     padding: 10px 15px;
     border-radius: 4px 4px 0 0;
     margin: auto;
-    /* border: 1px solid gainsboro; */
     border-bottom: 0;
     position: relative;
     top: 1.5px;
@@ -81,11 +89,24 @@
 }
 
 .content-div .macronutritents-heading, .totalNutrientsOfWholeDay .macronutritents-heading{
-    margin: 0 2px 1vh;
+    background: #ffc947;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0;
+    position: relative;
+    top: 1.5px;
+    z-index: 1;
 }
 
 .content-div .micronutritents-heading, .totalNutrientsOfWholeDay .micronutritents-heading{
-    margin: 3vh 2px 1vh;
+    margin-top: 2vh;
+    background: #28ffbf;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0;
+    position: relative;
+    top: 1.5px;
+    z-index: 1;
 }
 
 .totalNutrientsOfWholeDay .Accordian{

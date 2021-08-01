@@ -28,6 +28,7 @@ export default class CalorieCounter extends Component {
                 ingridentDataNotFound: "",
                 unableToSaveMealData: false
             },
+            maintenanceCalories: 0,
             openSnackbar: false,
             expandAccordian: false,
             fullRecipeName: "",
@@ -59,6 +60,13 @@ export default class CalorieCounter extends Component {
                 EveningSnack: {},
                 Dinner: {}
             },
+            caloriesRequiredToBeConsumedForAMeal:{
+                Breakfast: 0,
+                MorningSnack: 0,
+                Lunch: 0,
+                EveningSnack: 0,
+                Dinner: 0
+            },
             showFeedbackForSavingData: false
         }
 
@@ -77,8 +85,23 @@ export default class CalorieCounter extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         const cookie = new Cookies();
-        console.log(cookie.get('token'));
+        const userCredintials = this.props.userCredintials;
+        const fitnessCondition = userCredintials.fitnessCondition
+        let activityLevelValue = 0;
+
+        if (fitnessCondition === 'Not Active') {
+            activityLevelValue = 1.3;
+        } else if (fitnessCondition === 'Active') {
+            activityLevelValue = 1.5;
+        } else {
+            activityLevelValue = 1.7;
+        }
+        const BMR = ((userCredintials.currentWeight * 10) + (6.25 * userCredintials.height) - (5 * userCredintials.age) +
+            (userCredintials.gender === 'male' ? 5 : 161));
+
+        const maintenanceCalories = Math.round(BMR * activityLevelValue);
 
         api.post('/saveMealsData/getSavedMealsData', {
             token: cookie.get('token')
@@ -87,6 +110,14 @@ export default class CalorieCounter extends Component {
 
             this.setState({
                 ...this.state,
+                maintenanceCalories: maintenanceCalories,
+                caloriesRequiredToBeConsumedForAMeal:{
+                    Breakfast: maintenanceCalories*0.2, //20% of calories required for breakfast
+                    MorningSnack: maintenanceCalories*0.05, //5% of calories required for morning Snacks & evening snacks
+                    Lunch: maintenanceCalories*0.35, //35% of calories required for lunch & dinner
+                    EveningSnack: maintenanceCalories*0.05,
+                    Dinner: maintenanceCalories*0.35
+                },
                 nutritionRow: data.data
             })
 
@@ -193,6 +224,8 @@ export default class CalorieCounter extends Component {
                 ]
             }
         })
+
+        this.saveMealData();
     }
 
     sumOfIndividualNutrientsForAMeal(nutritionRow, meal, afterDeleting) {
@@ -303,6 +336,7 @@ export default class CalorieCounter extends Component {
 
         })
         console.log(newRowsafterDeleting.length);
+        this.saveMealData();
         this.sumOfIndividualNutrientsForAMeal(newRowsafterDeleting, meal, true);
 
     }
@@ -389,7 +423,9 @@ export default class CalorieCounter extends Component {
         return (
             <div className="calorieCounter-main-div">
                 <h1 className="top-heading">Calorie Counter</h1>
-
+                <h2 className='mainteneanceCalories-h2'>
+                    Total Calories required for you is <strong style={{ color: 'red' }}>{this.state.maintenanceCalories}kcal</strong>.
+                </h2>
                 {mealArr.map((meal, index) => {
                     return <Accordion
                         key={index}
@@ -431,6 +467,7 @@ export default class CalorieCounter extends Component {
                                 handleCloseSnackbar={this.handleCloseSnackbar}
                                 toSetSnackbar={this.toSetSnackbar}
                                 totalNutrients={this.state.totalNutrientsForAMeal[meal]}
+                                caloriesRequiredToBeConsumedForAMeal = {this.state.caloriesRequiredToBeConsumedForAMeal[meal]}
                             />
                         </AccordionDetails>
                     </Accordion>
