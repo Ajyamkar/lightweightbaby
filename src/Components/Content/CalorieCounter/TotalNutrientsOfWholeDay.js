@@ -89,7 +89,7 @@ export default function TotalNutrientsOfWholeDay(props) {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <h1>Full analysis of all the meals</h1>
+                    <h1>Total analysis of all the meals</h1>
                 </AccordionSummary>
                 <AccordionDetails>
                     {/* <h2 className={"macronutritents-heading"} style={{ "color": "green" }}>Total calories consumed = {sumOfTotalCalories}kcal</h2> */}

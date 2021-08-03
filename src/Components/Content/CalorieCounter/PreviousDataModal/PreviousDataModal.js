@@ -22,6 +22,8 @@ import Columns from '../Lists/NutritionColumnsList';
 
 import { Pie } from 'react-chartjs-2';
 import PieChart from '../Charts/PieChart';
+import BarChart from '../Charts/BarChart';
+import HorizontalGroupedBarChart from '../Charts/HorizontalGroupedBarChart';
 
 
 const mealArr = ['Breakfast', 'MorningSnack', 'Lunch', 'EveningSnack', 'Dinner'];
@@ -50,13 +52,16 @@ export default class PreviousDataModal extends Component {
             openModal: false,
             selectedDate: new Date(),
             dataFound: false,
+            showPrevious7DaysDataBarChart: false,
             nutritionRow: {},
             totalNutrientsForAMeals: {},
-            totalNutrientsAnaylsisOfWholeDay: {}
+            totalNutrientsAnaylsisOfWholeDay: {},
+            past7DaysPreviousData: []
         }
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.showPast7DaysData = this.showPast7DaysData.bind(this);
     }
 
     handleOpen() {
@@ -82,7 +87,7 @@ export default class PreviousDataModal extends Component {
         const cookie = new Cookies();
         const token = cookie.get('token');
 
-        api.post('/saveMealsData/getPreviousData', {
+        api.post('/saveMealsData/getPreviousDataForSelectedDate', {
             token: token,
             selectedDate: date
         }).then(result => {
@@ -179,7 +184,72 @@ export default class PreviousDataModal extends Component {
         })
     };
 
+    showPast7DaysData() {
+        const cookie = new Cookies();
+        const token = cookie.get('token');
+
+        if (this.state.showPrevious7DaysDataBarChart) {
+
+            this.setState({
+                ...this.state,
+                showPrevious7DaysDataBarChart: false
+            })
+        } else {
+            api.post('/saveMealsData/getLast7DaysData', { token: token }).then(result => {
+                const previousDaysDataArr = result.data.data;
+
+
+                let newDaysArr = [];
+                previousDaysDataArr.map(days => {
+
+                    let newDayWiseArr = [];
+                    mealArr.map((meal, index) => {
+                        newDayWiseArr.push(sumOfMacronutrients(days.allMealsData[meal]));//to get macros data for particular meal
+                    })
+                    newDaysArr.push({
+                        date: days.date,
+                        data: sumOfMacronutrients(newDayWiseArr)// to get macros data for particular day
+                    });
+
+                })
+                console.log(newDaysArr);
+
+                this.setState({
+                    ...this.state,
+                    past7DaysPreviousData: newDaysArr,
+                    showPrevious7DaysDataBarChart: true
+                })
+
+                // newDaysArr.map(days=>{
+                //     console.log({
+                //         date:days.date,
+                //         data:sumOfMacronutrients(days.data)
+                //     });
+                // })
+
+
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    }
+
     render() {
+        let previous7DaysDatelabels = [];
+        let previous7DaysCaloriesData = [];
+        let previous7DaysProteinsData = [];
+        let previous7DaysCarbsData = [];
+        let previous7DaysFatsData = [];
+        let previous7DaysSugarData = [];
+        this.state.past7DaysPreviousData.map(data => {
+            previous7DaysDatelabels.push(data.date.toString().slice(0, 10));
+            previous7DaysCaloriesData.push(data.data.totalCalories);
+            previous7DaysProteinsData.push(data.data.protein);
+            previous7DaysCarbsData.push(data.data.carbs);
+            previous7DaysFatsData.push(data.data.fats);
+            previous7DaysSugarData.push(data.data.sugar);
+        })
+
         return (
             <div className={'previousDataModal-main-div'}>
                 <Button onClick={this.handleOpen} className={'previous-data-btn'}>
@@ -206,8 +276,35 @@ export default class PreviousDataModal extends Component {
                                 <CloseIcon fontSize='large' />
                             </IconButton>
 
+
+
                             <div className='paper-content-div'>
                                 <h1 style={{ textAlign: 'center', color: 'seagreen' }} id="transition-modal-title">History</h1>
+
+                                <div className='showPrevious7Days-btn-div'>
+                                    <Button className='showPrevious7Days-btn' onClick={this.showPast7DaysData}>
+                                        {this.state.showPrevious7DaysDataBarChart ? 'Hide' : 'Show'} Past 7 days data
+                                    </Button>
+                                </div>
+
+                                {this.state.showPrevious7DaysDataBarChart ?
+                                    <div className='charts-div'>
+                                        <BarChart
+                                            labels={previous7DaysDatelabels}
+                                            data={previous7DaysCaloriesData}
+                                        />
+                                        <HorizontalGroupedBarChart
+                                            labels={previous7DaysDatelabels}
+                                            protein={previous7DaysProteinsData}
+                                            carbs={previous7DaysCarbsData}
+                                            fats={previous7DaysFatsData}
+                                            sugar={previous7DaysSugarData}
+                                        />
+                                    </div>
+                                    :
+                                    null}
+
+
                                 <div style={{ textAlign: 'center' }} >
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
@@ -281,7 +378,7 @@ export default class PreviousDataModal extends Component {
                                         })}
 
                                         <h1 style={{ textAlign: 'center' }}>Full anaylsis Of Nutritents</h1>
-                                        <div style={{margin:'2vh 0'}}>
+                                        <div style={{ margin: '2vh 0' }}>
                                             <h2 className={"macro-full-anaylsis-heading"}>Macro Nutritents</h2>
                                             <DataGrid
                                                 rows={[
@@ -303,7 +400,7 @@ export default class PreviousDataModal extends Component {
                                             />
                                         </div>
 
-                                        <div  style={{margin:'2vh 0'}}>
+                                        <div style={{ margin: '2vh 0' }}>
                                             <h2 className={"macro-full-anaylsis-heading"}>Micro Nutritents</h2>
                                             <DataGrid
                                                 rows={[{

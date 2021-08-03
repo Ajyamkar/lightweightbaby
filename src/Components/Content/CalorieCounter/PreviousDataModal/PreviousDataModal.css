@@ -19,11 +19,34 @@
     background-color: #fff;
 }
 
+
 .paper-content-div{
     position: relative;
     bottom: 2rem;
 }
 
+.paper-content-div .showPrevious7Days-btn-div{
+    text-align: center;
+    margin: 2vh 0;
+}
+
+.paper-content-div .showPrevious7Days-btn{
+    background: #348e5c !important;
+    padding: 6px 31px !important;
+    color: white !important;
+    margin-top: 2vh;
+}
+
+.paper-content-div .charts-div{
+    position: relative;
+  animation-name: example;
+  animation-duration: 2s;
+}
+
+@keyframes example {
+  0%  { left:0px; top:200px;}
+  100% {left:0px; top:0px;}
+}
 .data-found-div .MuiDataGrid-root {
     background: snow !important;
 }

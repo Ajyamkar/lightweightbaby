@@ -30,8 +30,8 @@ const MicroDefination = [
             'Dried beans'
         ],
         recommendaion: [
-            'Teens 14–18 years (boys) = 30000mg',
-            'Teens 14–18 years (girls) = 23000mg',
+            'Teens 14–18 years (boys) = 3000mg',
+            'Teens 14–18 years (girls) = 2300mg',
             'Adults (men) =	3400mg',
             'Adults (women) = 2600mg'
         ]

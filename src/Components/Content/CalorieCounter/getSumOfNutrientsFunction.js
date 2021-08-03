@@ -6,12 +6,12 @@ function sumOfMacronutrients(dataArr) {
 
     let protein = 0, carbs = 0, calories = 0, fats = 0, sugar = 0, water = 0;
     dataArr.map(nutrients => {
-        protein = protein + parseFloat(nutrients.protein);
-        carbs = carbs + parseFloat(nutrients.carbs);
-        calories = calories + parseFloat(nutrients.totalCalories);
-        fats = fats + parseFloat(nutrients.fats);
-        sugar = sugar + parseFloat(nutrients.sugar);
-        water = water + parseFloat(nutrients.water);
+        protein = protein + parseFloat(nutrients.protein===undefined?0:nutrients.protein);
+        carbs = carbs + parseFloat(nutrients.carbs===undefined?0:nutrients.carbs);
+        calories = calories + parseFloat(nutrients.totalCalories===undefined?0:nutrients.totalCalories);
+        fats = fats + parseFloat(nutrients.fats===undefined?0:nutrients.fats);
+        sugar = sugar + parseFloat(nutrients.sugar===undefined?0:nutrients.sugar);
+        water = water + parseFloat(nutrients.water===undefined?0:nutrients.water);
     })
     return {
         totalCalories: calories.toPrecision(4),
