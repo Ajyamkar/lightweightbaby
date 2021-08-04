@@ -242,7 +242,7 @@ export default class PreviousDataModal extends Component {
         let previous7DaysFatsData = [];
         let previous7DaysSugarData = [];
         this.state.past7DaysPreviousData.map(data => {
-            previous7DaysDatelabels.push(data.date.toString().slice(0, 10));
+            previous7DaysDatelabels.push(data.date.toString().slice(8,10)+"-"+data.date.toString().slice(5,7)+"-"+data.date.toString().slice(0,4));
             previous7DaysCaloriesData.push(data.data.totalCalories);
             previous7DaysProteinsData.push(data.data.protein);
             previous7DaysCarbsData.push(data.data.carbs);
