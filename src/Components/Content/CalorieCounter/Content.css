@@ -1,0 +1,160 @@
+.calorieCounter-main-div{
+    background: url("./Images/pattern-background.png");
+    background-attachment: fixed;
+}
+
+.calorieCounter-main-div .top-heading{
+    text-align: center;
+    /* padding-top: 2vh; */
+    margin-bottom: 1.5vh;
+    font-size: 12vw;
+}
+
+.calorieCounter-main-div .mainteneanceCalories-h2{
+    text-align: center;
+    color: seagreen;
+}
+
+.calorieCounter-main-div .Accordian{
+    margin: 2vh 0 !important;
+}
+
+.calorieCounter-main-div .MuiAccordionSummary-content{
+    justify-content: space-between !important;
+    align-items: baseline !important;
+}
+
+.calorieCounter-main-div .accordion-expandIcon{
+    font-size: 3rem !important;
+    color: green;
+}
+
+.calorieCounter-main-div .save-and-showprevious-mealdata-btngrp-div{
+    text-align: center;
+}
+
+.calorieCounter-main-div .save-meal-data-btn{
+    background: seagreen !important;
+    padding: 6px 33px !important;
+    color: white !important;
+    margin-top: 2vh;
+    font-size: 1.2rem !important;
+}
+
+.content-div{
+    width: 100%;
+}
+
+.content-div .addFabIcon{
+    background: #407701;
+    margin-right:5vw;
+}
+
+.content-div .addFabIcon:hover{
+    background: #b2ff59;
+}
+
+.content-div .calories-table-div{
+    /* width:92.5vw; */
+    margin:2vh 0;
+}
+
+.content-div .tabletitleDiv{
+    background: seagreen;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+    margin: auto;
+    border-bottom: 0;
+    position: relative;
+    top: 1.5px;
+    z-index: 1;
+}
+
+.content-div .MuiFormLabel-root.Mui-focused{
+    color: black !important;
+}
+
+.content-div .MuiInput-underline:after{
+    border-bottom: 2px solid black !important;
+}
+
+.content-div .MuiDataGrid-root{
+    border-radius: 0 0 4px 4px !important;
+    background: snow;
+}
+ 
+
+.content-div .MuiAccordionDetails-root{
+    display: block;
+}
+
+.content-div .macronutritents-heading, .totalNutrientsOfWholeDay .macronutritents-heading{
+    background: #ffc947;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0;
+    position: relative;
+    top: 1.5px;
+    z-index: 1;
+}
+
+.content-div .micronutritents-heading, .totalNutrientsOfWholeDay .micronutritents-heading{
+    margin-top: 2vh;
+    background: #28ffbf;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0;
+    position: relative;
+    top: 1.5px;
+    z-index: 1;
+}
+
+.totalNutrientsOfWholeDay .Accordian{
+    margin: 2vh 0 !important;
+}
+
+.totalNutrientsOfWholeDay .MuiAccordionDetails-root{
+    display: block !important;
+}
+
+.content-div .error{
+    color: red;
+    text-align: center;
+    margin: -20px 0 0 2.6rem;
+}
+
+@media screen and (max-width:1024px) and (min-width:620px) {
+
+    .calorieCounter-main-div .top-heading{
+        font-size: 3rem;
+    }
+
+    .content-div .addFabIcon{
+        margin-right:3vw;
+    }
+
+    .calorieCounter-main-div .save-and-showprevious-mealdata-btngrp-div{
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+}
+
+@media screen and (min-width:1025px) {
+
+    .calorieCounter-main-div .top-heading{
+        font-size: 3rem;
+    }
+
+    .content-div .addFabIcon{
+        margin-right:1.5vw;
+    }
+
+    .calorieCounter-main-div .save-and-showprevious-mealdata-btngrp-div{
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+    }
+
+}

@@ -33,7 +33,7 @@ export default class CookieSeter extends Component {
             cookies.set('token',token,{
                 path: '/',
                 // maxAge: 1000 * 60,
-                expiresIn: 60 * 15
+                expiresIn: 60 * 60
             });
             window.location.href = '/home'
         }

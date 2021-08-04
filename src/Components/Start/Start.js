@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
-import Button from '@material-ui/core/Button';
-import { Link, Redirect } from 'react-router-dom';
 import axios from '../Axios/axios';
+import Sidebar from './Sidebar/Sidebar';
 
 export default class Start extends Component {
     constructor(props) {
         super(props);
-    
+
         this.state = {
             isLoggedIn: false,
-            userCredintials:{},
-            isvarified: false
+            userCredintials: {},
+            isvarified: false,
+            mobileOpen: false,
+            left:false
         }
         this.logOut = this.logOut.bind(this);
+        this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
+        this.toggleDrawer = this.toggleDrawer.bind(this);
     }
-
-    // componentDidMount(){
-    //     console.log(this.props);
-
-    //     setTimeout(() => {
-    //         if (!this.props.isLoggedIn) {
-    //             // window.location.href = "/login"
-    //         }
-    //     }, 6000);
-        
-    // }
 
     componentDidMount() {
         const cookies = new Cookies();
@@ -38,11 +30,11 @@ export default class Start extends Component {
             if (res.data.code === 500) {
                 window.location.href = "https://ajyamkar.github.io/lightweightbaby/login"
             }
-            if(!res.data.data.isSetupComplete){
+            if (!res.data.data.isSetupComplete) {
                 window.location.href = "/setup"
             }
             if (res.data.code === 200) {
-                this.setState({ ...this.state,isLoggedIn: true,userCredintials:res.data.data });
+                this.setState({ ...this.state, isLoggedIn: true, userCredintials: res.data.data });
             }
         }).catch(err => {
             console.log(err);
@@ -58,25 +50,35 @@ export default class Start extends Component {
         cookies.remove('token', {
             path: '/',
             // maxAge: 1000 * 30,
-            expiresIn: 60*15
+            expiresIn: 60 * 15
         })
         window.location.href = "/login";
     }
 
+    toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+        this.setState({ ...this.state,left: open });
+    };
+
+    handleDrawerToggle() {
+        this.setState({ ...this.state, mobileOpen: !this.state.mobileOpen });
+    }
+
     render() {
+
         return (
             <div>
-                <h1>HOme</h1>
-                <p>{this.state.userCredintials.email}</p>
-                <p>{this.state.userCredintials.name}</p>
-                <img src={this.state.userCredintials.profile_picture} />
-                <button onClick={this.logOut} >Logout</button>
+                <Sidebar
+                    logOut={this.logOut}
+                    userCredintials={this.state.userCredintials}
+                    // mobileOpen={this.state.mobileOpen}
+                    // handleDrawerToggle={this.handleDrawerToggle}
+                    anchor= {this.state.left}
+                    toggleDrawer = {this.toggleDrawer}
+                />
             </div>
-            // (this.props.isLoggedIn) ? (
-            //     <h1>Home</h1>
-            // ) : (
-            //     <Redirect to="/login" /> 
-            // )
         )
     }
 }

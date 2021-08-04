@@ -5,10 +5,9 @@ import Cookies from 'universal-cookie';
 import axios from '../../Axios/axios';
 
 import TextField from '@material-ui/core/TextField';
-import DateFnsUtils from '@date-io/date-fns';
-import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
+
 import KeyboardBackspaceOutlinedIcon from '@material-ui/icons/KeyboardBackspaceOutlined';
-import { Button, FormControl, FormControlLabel, FormHelperText, FormLabel, IconButton, InputAdornment, LinearProgress, OutlinedInput, Radio, RadioGroup, Slider, Typography } from '@material-ui/core';
+import { Button, FormControl, FormControlLabel, FormHelperText, FormLabel, IconButton, InputAdornment, LinearProgress, OutlinedInput, Radio, RadioGroup } from '@material-ui/core';
 
 //inputArr images
 import nameImg from '../../../Assets/nameImg.png';
@@ -224,7 +223,7 @@ export default class setup extends Component {
                 <LinearProgress classes={{ root: "linear-progress-bar" }} variant="determinate" value={this.state.nextClickCount * 16.69} />
 
                 <form  className='setup-main-form'>
-                    <img className='inputArr-img' src={this.state.inputsArr[this.state.nextClickCount].inputImg} />
+                    <img alt="inputArr-img" className='inputArr-img' src={this.state.inputsArr[this.state.nextClickCount].inputImg} />
                     {this.state.nextClickCount !== 0 ?
                         <IconButton onClick={this.handleBackClick} classes={{ root: "back-icon-btn" }}>
                             <KeyboardBackspaceOutlinedIcon style={{ color: '#46549b' }} fontSize='large' />

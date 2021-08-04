@@ -1,0 +1,84 @@
+
+.NutritionBasic-main-div .heading-h1{
+    text-align: center;
+    margin: 4vh 0 1vh;
+}
+
+.NutritionBasic-main-div p{
+    font-size: x-large;
+}
+
+.NutritionBasic-main-div .advantagesofmacro-div ul{
+    color: rgb(62 128 35);
+    font-size: 1.3rem;
+    position: relative;
+    left: -5vw;
+}
+
+.NutritionBasic-main-div .advantagesofmacro-div li{
+    margin: 1vh 0;
+    font-weight: bold;
+}
+
+.NutritionBasic-main-div .intro-img{
+    width: 88.5vw;
+}
+
+.NutritionBasic-main-div .tracking-macros-img{
+    width: 90vw;
+}
+
+.NutritionBasic-main-div .macros-defination-div h2{
+    font-size: 1.5rem;
+}
+
+.NutritionBasic-main-div .macros-defination-div-Container{
+    margin:1vh 0;
+}
+
+.NutritionBasic-main-div .macros-defination-div ol,ul{
+    font-size: 1.2rem;
+    margin-left: -18px;
+    margin-top: 0.5vh;
+}
+
+.NutritionBasic-main-div .macros-defination-div p{
+    font-size: 1.2rem;
+    margin-top: 2vh;
+}
+
+@media screen and (max-width:1024px) and (min-width:620px) {
+    
+    .NutritionBasic-main-div .intro-img{
+        width: 46.1vw;
+    }
+
+    .NutritionBasic-main-div .advantagesofmacro-div ul{
+        left: 0;
+    }
+
+    .NutritionBasic-main-div .tracking-macros-img{
+        width: 30vw;
+        margin-bottom: 0;
+        position: relative;
+        top: 7vh;
+    }
+}
+@media screen and (min-width:1025px) {
+
+    .NutritionBasic-main-div .intro-img{
+        width: 44.1vw;
+        height: 38vh;
+        margin-left: 2.5vw;
+    }
+
+    .NutritionBasic-main-div .advantagesofmacro-div ul{
+        left: 0;
+    }
+
+    .NutritionBasic-main-div .tracking-macros-img{
+        width: 25vw;
+        margin-bottom: -1.5vw;
+        
+    }
+}

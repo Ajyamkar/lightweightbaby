@@ -1,0 +1,49 @@
+.brand-heading-div{
+    display: flex;
+    flex-grow: 1;
+    margin-right: 2.5vw;
+}
+
+.logo-img{
+    margin-right: 2px;
+}
+
+.brand-heading{
+ text-align: center !important;
+}
+
+.moreMenu{
+    background: black !important;
+}
+
+.brand-heading-div .MuiTypography-h6{
+    font-family: 'Merriweather', serif;
+}
+
+@media screen and (max-width:1024px) and (min-width:620px) {
+    .logo-img{
+        width: 40px;
+    }
+
+    .brand-heading-div .MuiTypography-h6{
+        /* font-family: 'Barlow', serif; */
+        font-family: 'Zen dots', serif;
+        position: relative;
+        top: 0.5vh;
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width:1025px) {
+
+    .logo-img{
+        width: 40px;
+    }
+
+    .brand-heading-div .MuiTypography-h6{
+        font-family: 'Zen dots', serif;
+        position: relative;
+        top: 0.5vh;
+        font-size: 1.5rem;
+    }
+}

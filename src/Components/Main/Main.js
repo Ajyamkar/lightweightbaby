@@ -7,6 +7,7 @@ import Login from '../Authentication/Login/Login'
 import Start from '../Start/Start'
 import CookieSeter from '../Authentication/Setup/cookieSeter';
 import Setup from '../Authentication/Setup/setup';
+import { Typography } from '@material-ui/core';
 
 export default class Main extends Component {
 
@@ -24,23 +25,23 @@ export default class Main extends Component {
     componentDidMount() {
 
 
-        if (window.location.href === 'http://localhost:3000/login' || window.location.href === 'http://localhost:3000/join') {
-            const cookies = new Cookies();
-            axios.post('/auth/me', {
-                token: cookies.get('token')
-            }).then(res => {
-                console.log(res);
-                // if (res.data.code === 500) {
-                //     window.location.href = "/login"
-                // }
-                if (res.data.code === 200) {
-                    window.location.href = '/home'
-                }
-            }).catch(err => {
-                console.log(err);
-                // window.location.href = "/login"
-            })
-        }
+        // if (window.location.href === 'http://localhost:3000/login' || window.location.href === 'http://localhost:3000/join') {
+        //     const cookies = new Cookies();
+        //     axios.post('/auth/me', {
+        //         token: cookies.get('token')
+        //     }).then(res => {
+        //         console.log(res);
+        //         // if (res.data.code === 500) {
+        //         //     window.location.href = "/login"
+        //         // }
+        //         if (res.data.code === 200) {
+        //             window.location.href = '/home'
+        //         }
+        //     }).catch(err => {
+        //         console.log(err);
+        //         // window.location.href = "/login"
+        //     })
+        // }
 
 
 
@@ -60,6 +61,7 @@ export default class Main extends Component {
 
 
     render() {
+        
         return (
             <div>
                 <Switch>
