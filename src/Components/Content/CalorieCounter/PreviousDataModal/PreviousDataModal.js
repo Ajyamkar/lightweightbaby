@@ -179,7 +179,12 @@ export default class PreviousDataModal extends Component {
                 })
             }
         }).catch(err => {
-            window.location.href = '/login'
+            this.setState({
+                ...this.state,
+                dataFound: false,
+                nutritionRow: {}
+            })
+            // window.location.href = '/login'
             console.log(err);
         })
     };
