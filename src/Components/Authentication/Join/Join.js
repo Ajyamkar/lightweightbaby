@@ -183,8 +183,8 @@ export default class Join extends Component {
             <div className="Join">
                 <div className="Join-main-div">
                     <h1 style={{ paddingTop: "15px" }} className="Join-h1">Join</h1>
-                    <div onClick={()=>{window.location.href='http://localhost:9000/auth/googleAuth'}} className="social-Join-btn"> <img className="social-Join-icon" src={GoogleIcon} alt="google-icon" /> Join with Google </div>
-                    <div onClick={()=>{window.location.href='http://localhost:9000/auth/fbAuth'}}className="social-Join-btn"> <img className="social-Join-icon" src={FacebookIcon} alt="facebook-icon" /> Join with Facebook </div>
+                    <div onClick={()=>{window.location.href='https://light-weight-baby.herokuapp.com/auth/googleAuth'}} className="social-Join-btn"> <img className="social-Join-icon" src={GoogleIcon} alt="google-icon" /> Join with Google </div>
+                    <div onClick={()=>{window.location.href='https://light-weight-baby.herokuapp.com/auth/fbAuth'}}className="social-Join-btn"> <img className="social-Join-icon" src={FacebookIcon} alt="facebook-icon" /> Join with Facebook </div>
                     <h1 style={{ padding: "0" }}>OR</h1>
                     <form onSubmit={this.handleSubmit}>
                         <div>
