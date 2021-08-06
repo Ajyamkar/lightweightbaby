@@ -102,6 +102,17 @@ export default class CalorieCounter extends Component {
             (userCredintials.gender === 'male' ? 5 : 161));
 
         const maintenanceCalories = Math.round(BMR * activityLevelValue);
+        this.setState({
+            ...this.state,
+            maintenanceCalories: maintenanceCalories,
+            caloriesRequiredToBeConsumedForAMeal:{
+                Breakfast: maintenanceCalories*0.2, //20% of calories required for breakfast
+                MorningSnack: maintenanceCalories*0.05, //5% of calories required for morning Snacks & evening snacks
+                Lunch: maintenanceCalories*0.35, //35% of calories required for lunch & dinner
+                EveningSnack: maintenanceCalories*0.05,
+                Dinner: maintenanceCalories*0.35
+            }
+        })
 
         api.post('/saveMealsData/getSavedMealsData', {
             token: cookie.get('token')
@@ -110,14 +121,6 @@ export default class CalorieCounter extends Component {
 
             this.setState({
                 ...this.state,
-                maintenanceCalories: maintenanceCalories,
-                caloriesRequiredToBeConsumedForAMeal:{
-                    Breakfast: maintenanceCalories*0.2, //20% of calories required for breakfast
-                    MorningSnack: maintenanceCalories*0.05, //5% of calories required for morning Snacks & evening snacks
-                    Lunch: maintenanceCalories*0.35, //35% of calories required for lunch & dinner
-                    EveningSnack: maintenanceCalories*0.05,
-                    Dinner: maintenanceCalories*0.35
-                },
                 nutritionRow: data.data
             })
 
