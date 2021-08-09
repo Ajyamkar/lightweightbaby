@@ -4,7 +4,7 @@ import api from "../../Axios/axios";
 import Content from './Content';
 import Columns from './Lists/NutritionColumnsList';
 import Cookies from 'universal-cookie';
-import { Accordion, AccordionSummary, AccordionDetails, Button, Grid, Snackbar } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, Button, Grid, Snackbar, RadioGroup, Radio, FormControlLabel, Tooltip, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import NutritionBasic from './NutritionBasic';
@@ -29,6 +29,9 @@ export default class CalorieCounter extends Component {
                 unableToSaveMealData: false
             },
             maintenanceCalories: 0,
+            wantToLoseOrGainWeight: "",
+            onAMission: 'toMaintainWeight',
+            cuurentChallengeDay: 0,
             openSnackbar: false,
             expandAccordian: false,
             fullRecipeName: "",
@@ -60,7 +63,7 @@ export default class CalorieCounter extends Component {
                 EveningSnack: {},
                 Dinner: {}
             },
-            caloriesRequiredToBeConsumedForAMeal:{
+            caloriesRequiredToBeConsumedForAMeal: {
                 Breakfast: 0,
                 MorningSnack: 0,
                 Lunch: 0,
@@ -70,6 +73,7 @@ export default class CalorieCounter extends Component {
             showFeedbackForSavingData: false
         }
 
+        this.changeMaintenanceCalories = this.changeMaintenanceCalories.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.fullRecipeAnalysis = this.fullRecipeAnalysis.bind(this);
         this.individualIngridentAnalysis = this.individualIngridentAnalysis.bind(this);
@@ -101,16 +105,37 @@ export default class CalorieCounter extends Component {
         const BMR = ((userCredintials.currentWeight * 10) + (6.25 * userCredintials.height) - (5 * userCredintials.age) +
             (userCredintials.gender === 'male' ? 5 : 161));
 
-        const maintenanceCalories = Math.round(BMR * activityLevelValue);
+        let maintenanceCalories = Math.round(BMR * activityLevelValue);
+        let onAMission = 'toMaintainWeight';
+        let dayDifference = 0;
+
+        if (this.props.userCredintials.wantToLoseOrGainWeight !== undefined) {
+
+            const date1 = new Date();
+            const date2 = new Date(this.props.userCredintials.wantToLoseOrGainWeight.changedAt);
+
+            dayDifference = Math.ceil((Math.abs(date1 - date2)) / (1000 * 60 * 60 * 24));
+
+            if (this.props.userCredintials.wantToLoseOrGainWeight.lose && dayDifference <= 30) {
+                maintenanceCalories = maintenanceCalories - 500;
+                onAMission = 'toLoseWeight';
+            } else if (this.props.userCredintials.wantToLoseOrGainWeight.gain && dayDifference <= 30) {
+                maintenanceCalories = maintenanceCalories + 500;
+                onAMission = 'toGainWeight';
+            }
+        }
+
         this.setState({
             ...this.state,
+            onAMission: onAMission,
             maintenanceCalories: maintenanceCalories,
-            caloriesRequiredToBeConsumedForAMeal:{
-                Breakfast: maintenanceCalories*0.2, //20% of calories required for breakfast
-                MorningSnack: maintenanceCalories*0.05, //5% of calories required for morning Snacks & evening snacks
-                Lunch: maintenanceCalories*0.35, //35% of calories required for lunch & dinner
-                EveningSnack: maintenanceCalories*0.05,
-                Dinner: maintenanceCalories*0.35
+            cuurentChallengeDay: dayDifference,
+            caloriesRequiredToBeConsumedForAMeal: {
+                Breakfast: maintenanceCalories * 0.2, //20% of calories required for breakfast
+                MorningSnack: maintenanceCalories * 0.05, //5% of calories required for morning Snacks & evening snacks
+                Lunch: maintenanceCalories * 0.35, //35% of calories required for lunch & dinner
+                EveningSnack: maintenanceCalories * 0.05,
+                Dinner: maintenanceCalories * 0.35
             }
         })
 
@@ -421,14 +446,94 @@ export default class CalorieCounter extends Component {
 
     }
 
-    render() {
+    changeMaintenanceCalories() {
 
+        const cookie = new Cookies();
+        let maintenanceCalories = this.state.maintenanceCalories;
+        let onAMission = 'toMaintainWeight';
+        if (this.state.wantToLoseOrGainWeight === "lose") {
+            maintenanceCalories = maintenanceCalories - 500;
+            onAMission = 'toLoseWeight';
+        } else if (this.state.wantToLoseOrGainWeight === "gain") {
+            maintenanceCalories = maintenanceCalories + 500;
+            onAMission = 'toGainWeight';
+        }
+
+
+        this.setState({
+            ...this.state,
+            onAMission: onAMission,
+            maintenanceCalories: maintenanceCalories,
+            cuurentChallengeDay: 0,
+            caloriesRequiredToBeConsumedForAMeal: {
+                Breakfast: maintenanceCalories * 0.2, //20% of calories required for breakfast
+                MorningSnack: maintenanceCalories * 0.05, //5% of calories required for morning Snacks & evening snacks
+                Lunch: maintenanceCalories * 0.35, //35% of calories required for lunch & dinner
+                EveningSnack: maintenanceCalories * 0.05,
+                Dinner: maintenanceCalories * 0.35
+            }
+        })
+
+        api.post('/caloriesCounter/changeMaintenanceCalories', {
+            token: cookie.get('token'),
+            wantToLoseOrGainWeight: this.state.wantToLoseOrGainWeight
+        }).catch(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        })
+
+    }
+
+    render() {
         return (
             <div className="calorieCounter-main-div">
-                <h1 className="top-heading">Calorie Counter</h1>
+
+                {this.state.onAMission !== "toMaintainWeight" ?
+                    <div>
+                        <h1 style={{ textAlign: 'center', fontSize: '3.5rem' }}>Day {this.state.cuurentChallengeDay}</h1>
+                        {/* <p style={{ color: 'red', textAlign: "center", fontStyle: 'italic', fontSize: '0.7rem' }}>You have accepted the challenge  {this.state.onAMission === "toGainWeight" ? " to Gain weight " : " to Lose weight "} for 30 days</p> */}
+                    </div>
+                    : null
+                }
+
+                <h1 className="top-heading" style={{ marginBottom: '0' }}>Calorie Counter</h1>
+
+
                 <h2 className='mainteneanceCalories-h2'>
-                    Total Calories required for you is <strong style={{ color: 'red' }}>{this.state.maintenanceCalories}kcal</strong>.
+                    Total Calories required for you
+                    {this.state.onAMission === 'toMaintainWeight' ? " to maintain weight " :
+                        this.state.onAMission === "toGainWeight" ? " to gain weight " : " to lose weight "}
+                    is <strong style={{ color: 'red' }}>{this.state.maintenanceCalories}kcal</strong>.
                 </h2>
+
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '2vh 0' }}>
+                    {this.state.onAMission === "toMaintainWeight" ?
+                        <Accordion
+                            expanded={this.state.expandAccordian === 'onAmission'}
+                            onChange={this.handleExpandAccordian("onAmission")}
+                        >
+                            <AccordionSummary
+                                expandIcon={this.state.expandAccordian === 'onAmission' ? <RemoveIcon className='accordion-expandIcon' style={{ color: 'red' }} /> : <AddIcon className='accordion-expandIcon' fontSize='large' />}
+                                aria-controls="onAmission-content"
+                                id="onAmission-header"
+                            >
+                                <h1 style={{ paddingRight: '2vw' }}>Take a challenge</h1>
+                            </AccordionSummary>
+                            <AccordionDetails style={{ textAlign: 'center', display: 'block' }}>
+                                <RadioGroup value={this.state.wantToLoseOrGainWeight} name='wantToLoseOrGainWeight' onChange={this.handleChange}>
+                                    <FormControlLabel value="lose" control={<Radio />} label="To lose weight" />
+                                    <FormControlLabel value="gain" control={<Radio />} label="To gain weight" />
+                                    <FormControlLabel value="maintain" control={<Radio />} label="Maintain the same weight" />
+                                </RadioGroup>
+                                <Button style={{ backgroundColor: 'seagreen', color: 'white', padding: '6px 20px', marginTop: '2vh' }} onClick={this.changeMaintenanceCalories}>Save the changes</Button>
+                            </AccordionDetails>
+                        </Accordion>
+                        :
+                        null
+                    }
+                </div>
+
                 {mealArr.map((meal, index) => {
                     return <Accordion
                         key={index}
@@ -470,7 +575,7 @@ export default class CalorieCounter extends Component {
                                 handleCloseSnackbar={this.handleCloseSnackbar}
                                 toSetSnackbar={this.toSetSnackbar}
                                 totalNutrients={this.state.totalNutrientsForAMeal[meal]}
-                                caloriesRequiredToBeConsumedForAMeal = {this.state.caloriesRequiredToBeConsumedForAMeal[meal]}
+                                caloriesRequiredToBeConsumedForAMeal={this.state.caloriesRequiredToBeConsumedForAMeal[meal]}
                             />
                         </AccordionDetails>
                     </Accordion>
