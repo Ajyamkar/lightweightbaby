@@ -486,9 +486,9 @@ export default class CalorieCounter extends Component {
     }
 
     render() {
+
         return (
             <div className="calorieCounter-main-div">
-
                 {this.state.onAMission !== "toMaintainWeight" ?
                     <div>
                         <h1 style={{ textAlign: 'center', fontSize: '3.5rem' }}>Day {this.state.cuurentChallengeDay}</h1>
@@ -498,8 +498,6 @@ export default class CalorieCounter extends Component {
                 }
 
                 <h1 className="top-heading" style={{ marginBottom: '0' }}>Calorie Counter</h1>
-
-
                 <h2 className='mainteneanceCalories-h2'>
                     Total Calories required for you
                     {this.state.onAMission === 'toMaintainWeight' ? " to maintain weight " :
@@ -533,7 +531,7 @@ export default class CalorieCounter extends Component {
                         null
                     }
                 </div>
-
+                
                 {mealArr.map((meal, index) => {
                     return <Accordion
                         key={index}
