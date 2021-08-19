@@ -516,7 +516,7 @@ export default class CalorieCounter extends Component {
                                 aria-controls="onAmission-content"
                                 id="onAmission-header"
                             >
-                                <h1 style={{ paddingRight: '2vw' }}>Take a challenge</h1>
+                                <h1 style={{ paddingRight: '2vw' }}>30 Days Challenge</h1>
                             </AccordionSummary>
                             <AccordionDetails style={{ textAlign: 'center', display: 'block' }}>
                                 <RadioGroup value={this.state.wantToLoseOrGainWeight} name='wantToLoseOrGainWeight' onChange={this.handleChange}>
