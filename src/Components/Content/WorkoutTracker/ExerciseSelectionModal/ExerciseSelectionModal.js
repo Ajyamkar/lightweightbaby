@@ -53,7 +53,7 @@ export default class ExerciseSelectionModal extends Component {
 
             <div className="exerciseSelectionModal-main-div">
                 <div onClick={this.handleModalOpen}>
-                    <Typography>Hello</Typography>
+                    <Typography>{this.props.levelExercise}</Typography>
                 </div>
                 
                 <Modal
@@ -74,7 +74,7 @@ export default class ExerciseSelectionModal extends Component {
                         style={paperStyle}
                          classes={{root:'paper'}}
                          >
-                            <h1>Hello</h1>
+                            <h1>{this.props.levelExercise}</h1>
                         </div>
                     </Fade>
 

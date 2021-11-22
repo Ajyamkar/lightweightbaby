@@ -73,8 +73,8 @@ export default class WorkoutTracker extends Component {
                                                         <AccordionDetails key={index}>
                                                             {/* <h3>leg extension</h3> */}
 
-                                                            {levelExercise}
-                                                            {/* <ExerciseSelectionModal /> */}
+                                                            {/* {levelExercise} */}
+                                                            <ExerciseSelectionModal levelExercise={levelExercise}/>
                                                         </AccordionDetails>
                                                     )
                                                 })
