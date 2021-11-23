@@ -13,14 +13,14 @@ export default class WorkoutTracker extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            bodypartExpandAccordion:false,
+            bodypartExpandAccordion: false,
             expandAccordion: false
         }
 
         this.handleExpandAccordion = this.handleExpandAccordion.bind(this);
     }
 
-    handleExpandAccordion(item,accordion) {
+    handleExpandAccordion(item, accordion) {
         return function (e, isExpanded) {
             this.setState({
                 ...this.state,
@@ -39,7 +39,7 @@ export default class WorkoutTracker extends Component {
                         <Accordion
                             key={exercise.id}
                             expanded={this.state.bodypartExpandAccordion === exercise.bodyPart}
-                            onChange={this.handleExpandAccordion(exercise.bodyPart,"bodypartExpandAccordion")}
+                            onChange={this.handleExpandAccordion(exercise.bodyPart, "bodypartExpandAccordion")}
                         >
                             <AccordionSummary
                                 expandIcon={this.state.bodypartExpandAccordion === exercise.bodyPart ? <AccessibilityIcon style={{ color: 'red' }} /> : <AccessibilityIcon style={{ color: 'black' }} />}
@@ -56,7 +56,7 @@ export default class WorkoutTracker extends Component {
                                         <Accordion
                                             key={index}
                                             expanded={this.state.expandAccordion === `${exercise.bodyPart}-${level}`}
-                                            onChange={this.handleExpandAccordion(`${exercise.bodyPart}-${level}`,"expandAccordion")}
+                                            onChange={this.handleExpandAccordion(`${exercise.bodyPart}-${level}`, "expandAccordion")}
                                         >
                                             <AccordionSummary
                                                 expandIcon={this.state.expandAccordion === `${exercise.bodyPart}-${level}` ? <AccessibilityIcon style={{ color: 'red' }} /> : <AccessibilityIcon style={{ color: 'black' }} />}
@@ -74,7 +74,11 @@ export default class WorkoutTracker extends Component {
                                                             {/* <h3>leg extension</h3> */}
 
                                                             {/* {levelExercise} */}
-                                                            <ExerciseSelectionModal levelExercise={levelExercise}/>
+                                                            <ExerciseSelectionModal
+                                                                levelExerciseName={levelExercise.exerciseName}
+                                                                exerciseImg={levelExercise.imgSrc}
+                                                                exerciseHowToDo={levelExercise.howToDo}
+                                                            />
                                                         </AccordionDetails>
                                                     )
                                                 })
@@ -88,7 +92,7 @@ export default class WorkoutTracker extends Component {
                         </Accordion>
                     )
                 })}
-                
+
                 {/* <Accordion>
                     <AccordionSummary>
                         <h2>legs</h2>

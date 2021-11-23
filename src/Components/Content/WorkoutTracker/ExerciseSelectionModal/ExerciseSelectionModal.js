@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './ExerciseSelectionModal.css';
-import { Backdrop, Button, Fade, Modal, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Backdrop, Button, Fade, IconButton, Modal, Typography } from '@mui/material';
+
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const modalStyle = {
     display: 'flex',
@@ -10,7 +12,7 @@ const modalStyle = {
 
 const paperStyle = {
     backgroundColor: '#fff',
-    "z-index":"2",
+    "z-index": "2",
     // background: `url(${bg})`,
     // border: '2px solid #000',
     boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%)',
@@ -29,8 +31,8 @@ export default class ExerciseSelectionModal extends Component {
         }
 
         // this.handleModalChange = this.handleModalChange.bind(this);
-        this.handleModalOpen=this.handleModalOpen.bind(this);
-        this.handleModalClose=this.handleModalClose.bind(this);
+        this.handleModalOpen = this.handleModalOpen.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);
 
     }
 
@@ -53,9 +55,9 @@ export default class ExerciseSelectionModal extends Component {
 
             <div className="exerciseSelectionModal-main-div">
                 <div onClick={this.handleModalOpen}>
-                    <Typography>{this.props.levelExercise}</Typography>
+                    <Typography >{this.props.levelExerciseName}</Typography>
                 </div>
-                
+
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
@@ -70,11 +72,35 @@ export default class ExerciseSelectionModal extends Component {
                     }}
                 >
                     <Fade in={this.state.openModal}>
-                        <div 
-                        style={paperStyle}
-                         classes={{root:'paper'}}
-                         >
-                            <h1>{this.props.levelExercise}</h1>
+                        <div
+                            style={paperStyle}
+                            classes={{ root: 'paper' }}
+                        >
+
+                            <div >
+                                <IconButton  aria-label="close" onClick={this.handleModalClose}   >
+                                    <CloseRoundedIcon style={{position:"absolute"}} classes={{ root: 'closeExerciseSelection-btn' }} />
+                                </IconButton>
+                                <h1 className="exercise-name">{this.props.levelExerciseName}</h1>
+                            </div>
+
+                            <div className="exercise-img">
+                                <img src={this.props.exerciseImg} alt={`${this.props.levelExerciseName}-img`} />
+                            </div>
+                            <Accordion>
+                                <AccordionSummary>
+                                    <h2>How To Do</h2>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <ol style={{ marginLeft: "-1.5rem" }}>
+                                        {this.props.exerciseHowToDo.map(points => {
+                                            return (
+                                                <li>{points}</li>
+                                            )
+                                        })}
+                                    </ol>
+                                </AccordionDetails>
+                            </Accordion>
                         </div>
                     </Fade>
 
