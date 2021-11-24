@@ -22,9 +22,14 @@
     margin-bottom: 0.5rem;
 }
 
-.exercise-img{
+.exercise-img-div{
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
 }
 
+.exercise-img{
+    width: -webkit-fill-available;
+    border: 2px solid;
+    border-radius: 1.5rem;
+}

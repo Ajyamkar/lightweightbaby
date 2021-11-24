@@ -84,14 +84,14 @@ export default class ExerciseSelectionModal extends Component {
                                 <h1 className="exercise-name">{this.props.levelExerciseName}</h1>
                             </div>
 
-                            <div className="exercise-img">
-                                <img src={this.props.exerciseImg} alt={`${this.props.levelExerciseName}-img`} />
+                            <div className="exercise-img-div">
+                                <img className="exercise-img" src={this.props.exerciseImg} alt={`${this.props.levelExerciseName}-img`} />
                             </div>
                             <Accordion>
                                 <AccordionSummary>
                                     <h2>How To Do</h2>
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails style={{border:"2px solid"}}>
                                     <ol style={{ marginLeft: "-1.5rem" }}>
                                         {this.props.exerciseHowToDo.map(points => {
                                             return (
