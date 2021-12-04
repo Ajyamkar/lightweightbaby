@@ -14,10 +14,20 @@ export default class WorkoutTracker extends Component {
         super(props)
         this.state = {
             bodypartExpandAccordion: false,
-            expandAccordion: false
+            expandAccordion: false,
+            selectedExerciseArr: [
+                // {
+                //     exerciseId: "",
+                //     exerciseName: "",
+                //     bodyPart: "",
+                //     totalNoOfSets: "",
+                //     setDetails: []
+                // }
+            ]
         }
 
         this.handleExpandAccordion = this.handleExpandAccordion.bind(this);
+        this.saveSelectedExerciseData= this.saveSelectedExerciseData.bind(this);
     }
 
     handleExpandAccordion(item, accordion) {
@@ -29,6 +39,24 @@ export default class WorkoutTracker extends Component {
         }.bind(this);
     }
 
+    saveSelectedExerciseData(data) {
+        const detials = {
+            exerciseId: data.exerciseId,
+            exerciseName: data.exerciseName,
+            bodyPart: data.bodyPart,
+            totalNoOfSets: data.totalNoOfSets,
+            setDetails: data.setDetails
+        }
+        let arr = this.state.selectedExerciseArr;
+        arr.push(detials);
+
+        this.setState({
+            ...this.state,
+            selectedExerciseArr:arr
+        })
+
+    }
+
     render() {
         return (
             <div className="workoutTracker-main-div">
@@ -37,6 +65,7 @@ export default class WorkoutTracker extends Component {
                 {exerciseList.map(exercise => {
                     return (
                         <Accordion
+                            style={{ margin: "1rem 0" }}
                             key={exercise.id}
                             expanded={this.state.bodypartExpandAccordion === exercise.bodyPart}
                             onChange={this.handleExpandAccordion(exercise.bodyPart, "bodypartExpandAccordion")}
@@ -51,9 +80,10 @@ export default class WorkoutTracker extends Component {
                             <AccordionDetails>
                                 <h2>Choose the level of exercise</h2>
 
-                                {["Beginner", "Moderate", "Advance"].map((level, index) => {
+                                {["Beginner", "Intermediate", "Advance"].map((level, index) => {
                                     return (
                                         <Accordion
+                                            style={{ margin: "0.5rem 0" }}
                                             key={index}
                                             expanded={this.state.expandAccordion === `${exercise.bodyPart}-${level}`}
                                             onChange={this.handleExpandAccordion(`${exercise.bodyPart}-${level}`, "expandAccordion")}
@@ -69,15 +99,19 @@ export default class WorkoutTracker extends Component {
                                             {exercise.level[level] === undefined ?
                                                 null :
                                                 exercise.level[level].map((levelExercise, index) => {
+                                                
                                                     return (
                                                         <AccordionDetails key={index}>
                                                             {/* <h3>leg extension</h3> */}
 
                                                             {/* {levelExercise} */}
                                                             <ExerciseSelectionModal
+                                                                exerciseId={levelExercise.exerciseId}
+                                                                bodyPart={exercise.bodyPart}
                                                                 levelExerciseName={levelExercise.exerciseName}
                                                                 exerciseImg={levelExercise.imgSrc}
                                                                 exerciseHowToDo={levelExercise.howToDo}
+                                                                saveSelectedExerciseData={this.saveSelectedExerciseData}
                                                             />
                                                         </AccordionDetails>
                                                     )
@@ -90,6 +124,17 @@ export default class WorkoutTracker extends Component {
 
                             </AccordionDetails>
                         </Accordion>
+                    )
+                })}
+
+                {this.state.selectedExerciseArr.map(data=>{
+                    return(
+                        <div>
+                            <h3>{data.exerciseId}</h3>
+                            <h3>{data.bodyPart}</h3>
+                            <h3>{data.exerciseName}</h3>
+                            <h3>{data.totalNoOfSets}</h3>
+                        </div>
                     )
                 })}
 

@@ -26,10 +26,6 @@ export default class Start extends Component {
         axios.post('/auth/me', {
             token: cookies.get('token')
         }).then(res => {
-            console.log(res);
-            if (res.data.code === 500) {
-                window.location.href = "https://ajyamkar.github.io/lightweightbaby/login"
-            }
             if (!res.data.data.isSetupComplete) {
                 window.location.href = "/setup"
             }
@@ -73,8 +69,6 @@ export default class Start extends Component {
                 <Sidebar
                     logOut={this.logOut}
                     userCredintials={this.state.userCredintials}
-                    // mobileOpen={this.state.mobileOpen}
-                    // handleDrawerToggle={this.handleDrawerToggle}
                     anchor= {this.state.left}
                     toggleDrawer = {this.toggleDrawer}
                 />
