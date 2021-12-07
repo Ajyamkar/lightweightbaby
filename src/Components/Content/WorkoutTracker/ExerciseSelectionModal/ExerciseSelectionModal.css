@@ -12,6 +12,7 @@
     z-index: 2;
 }
 
+
 .closeExerciseSelection-btn{
     color: red;
     font-size: 2.5rem !important;
@@ -25,11 +26,105 @@
 .exercise-img-div{
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 }
 
 .exercise-img{
     width: -webkit-fill-available;
     border: 2px solid;
-    border-radius: 1.5rem;
+    border-radius: 10px;
 }
+
+.howToDo-accordion{
+    margin: 1rem 0 !important;
+    border-radius:5px !important;
+}
+
+.howToDo-accordionSummary-div{
+    background-color:#71ffff;
+    border-radius:5px 5px 0 0;
+}
+
+.howToDo-accordionDetails{
+    border: 2px solid !important;
+}
+
+.howToPerform-select{
+    background-color: white !important;
+    outline: #000 !important;
+}
+
+.setsCounterBtns-div{
+    display: flex;
+    justify-content: center;
+}
+
+.addSetCounter-btn{
+    background: white !important;
+    color: #160040 !important;
+    padding: 0.5rem 2rem !important;
+    margin-top: 0.3rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.sets-selection-div ,.alreadyAdded-sets-div{
+    text-align: center;
+}
+
+.sets-selection-div  h1{
+    margin: 0.3rem 0;
+}
+
+.alreadyAdded-sets-div h1{
+    margin: 0.3rem 0;
+}
+
+.sets-selection-div  h2,h3{
+    margin: 0.5rem 0;
+}
+
+.alreadyAdded-sets-div  h2,h3{
+    margin: 0.5rem 0;
+}
+
+.setsTable-tableHead{
+    background: #F3950D !important;
+}
+
+.setsTable-table-cell{
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #160040 !important;
+}
+
+.enterSetDetails-div{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+
+.setDetailsInput-textfield{
+    margin: 0 0.5rem !important;
+    background-color:white !important;
+}
+
+.addSetDetails-btn{
+    background: white !important;
+    color: #160040 !important;
+    padding: 0.4rem 2rem !important;
+    margin-top: 0.6rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.saveSetDetails-btn{
+    background: white !important;
+    color: #160040 !important;
+    padding: 0.4rem 2rem !important;
+    margin-top: 1rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
