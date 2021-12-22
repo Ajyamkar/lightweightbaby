@@ -1,15 +1,18 @@
-.exerciseSelectionModal-main-div .modal{
+.exerciseSelectionModal-modal{
     display:flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
 
-.exerciseSelectionModal-main-div .paper{
-    border: 2px solid #000;
+.exerciseSelectionModal-paper{
     padding: 16px 32px 24px;
     box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%);
-    background-color: #fff;
+    background-color: #160040;
     z-index: 2;
+    width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    color: white;
 }
 
 
@@ -47,6 +50,10 @@
 
 .howToDo-accordionDetails{
     border: 2px solid !important;
+}
+
+.howToPerform-formControl{
+    width: 38vw !important;
 }
 
 .howToPerform-select{
@@ -128,3 +135,27 @@
     font-weight: 600 !important;
 }
 
+@media screen and (max-width:1024px) and (min-width:620px){
+    .exerciseSelectionModal-paper{
+        width: 80vw;
+    }
+
+    .howToPerform-formControl{
+        width: 30vw !important;
+    }
+
+
+}
+
+
+@media screen and (min-width:1025px){
+    .exerciseSelectionModal-paper{
+        width: 50vw;
+    }
+
+    .howToPerform-formControl{
+        width: 20vw !important;
+    }
+
+    
+}

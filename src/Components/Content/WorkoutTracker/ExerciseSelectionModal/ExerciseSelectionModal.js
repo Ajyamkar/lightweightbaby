@@ -11,25 +11,25 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const modalStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-};
+// const modalStyle = {
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+// };
 
-const paperStyle = {
-    backgroundColor: '#fff',
-    "z-index": "2",
-    // background: `url(${bg})`,
-    // border: '2px solid #000',
-    boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%)',
-    padding: '16px 16px ',
-    width: '90vw',
-    maxHeight: '90vh',
-    overflow: 'auto',
-    background: "#160040",
-    color: "white"
-}
+// const paperStyle = {
+//     backgroundColor: '#fff',
+//     "z-index": "2",
+//     // background: `url(${bg})`,
+//     // border: '2px solid #000',
+//     boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%)',
+//     padding: '16px 16px ',
+//     width: '90vw',
+//     maxHeight: '90vh',
+//     overflow: 'auto',
+//     background: "#160040",
+//     color: "white"
+// }
 
 
 export default class ExerciseSelectionModal extends Component {
@@ -55,6 +55,34 @@ export default class ExerciseSelectionModal extends Component {
         this.changeCounter = this.changeCounter.bind(this);
         this.addSetDetails = this.addSetDetails.bind(this);
         this.saveSetDetails = this.saveSetDetails.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        // console.log(prevProps);
+        if (this.props.selectedExerciseArr.length != prevProps.selectedExerciseArr.length
+//            && this.props.exerciseId != prevProps.exerciseId
+            ) {
+            console.log(prevProps.selectedExerciseArr);
+            this.setState({
+                error: "",
+                openModal: false,
+                howToPerform: "",
+                noOfSets: 1,
+                showNoOfSets: true,
+                setsDetailsArr: [],
+                noOfReps: "",
+                weight: "",
+                selectWeightScale: "kg",
+                isAlreadyAdded: false
+            })
+        }
+        // const arr = this.props.selectedExerciseArr.filter(exercise => {
+        //     return (this.props.exerciseId == exercise.exerciseId)
+        // })
+
+        // if (arr.length == 0) {
+           
+        // }
     }
 
     handleChange(e) {
@@ -106,12 +134,19 @@ export default class ExerciseSelectionModal extends Component {
                 ...this.state,
                 error: "please enter the input"
             })
+        } else if (this.state.noOfReps <= 0 || this.state.weight <= 0) {
+            this.setState({
+                ...this.state,
+                error: "please enter correct input value cannot be less than or equal to Zero"
+            })
         } else {
             const arr = this.state.setsDetailsArr;
 
             arr.push({
+                setNo: arr.length + 1,
                 noOfReps: this.state.noOfReps[0],
-                weight: this.state.weight[0] + "" + weightScale
+                weight: this.state.weight[0] + "" + weightScale,
+                isCompleted: false
             })
 
             this.setState({
@@ -119,7 +154,8 @@ export default class ExerciseSelectionModal extends Component {
                 noOfReps: "",
                 weight: "",
                 selectWeightScale: "kg",
-                setsDetailsArr: arr
+                setsDetailsArr: arr,
+                error: ""
             })
         }
     }
@@ -130,7 +166,8 @@ export default class ExerciseSelectionModal extends Component {
             exerciseName: this.props.levelExerciseName,
             bodyPart: this.props.bodyPart,
             totalNoOfSets: this.state.noOfSets,
-            setDetails: this.state.setsDetailsArr
+            setDetails: this.state.setsDetailsArr,
+            isAllSetsCompleted: false
         }
 
         this.setState({
@@ -167,8 +204,8 @@ export default class ExerciseSelectionModal extends Component {
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     open={this.state.openModal}
-                    style={modalStyle}
-                    classes={{ root: 'modal' }}
+                    // style={modalStyle}
+                    classes={{ root: 'exerciseSelectionModal-modal' }}
                     onClose={this.handleModalClose}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
@@ -178,8 +215,8 @@ export default class ExerciseSelectionModal extends Component {
                 >
                     <Fade in={this.state.openModal}>
                         <div
-                            style={paperStyle}
-                            classes={{ root: 'paper' }}
+                            // style={paperStyle}
+                            className='exerciseSelectionModal-paper'
                         >
 
                             <div >
@@ -201,9 +238,9 @@ export default class ExerciseSelectionModal extends Component {
                                 <div style={{ borderRadius: "0 0 5px 5px" }}>
                                     <AccordionDetails classes={{ root: "howToDo-accordionDetails" }} >
                                         <ol style={{ marginLeft: "-1.5rem" }}>
-                                            {this.props.exerciseHowToDo.map(points => {
+                                            {this.props.exerciseHowToDo.map((points, index) => {
                                                 return (
-                                                    <li>{points}</li>
+                                                    <li key={index + 1}>{points}</li>
                                                 )
                                             })}
                                         </ol>
@@ -241,7 +278,7 @@ export default class ExerciseSelectionModal extends Component {
                                 :
                                 <div className="sets-selection-div">
                                     <Box>
-                                        <FormControl sx={{ width: "38vw" }}>
+                                        <FormControl classes={{ root: "howToPerform-formControl" }}>
                                             <InputLabel style={{ color: "#e60067" }} id="inputlabel-select-how-to-perform">How to perform</InputLabel>
                                             <Select
                                                 classes={{ root: "howToPerform-select" }}
@@ -301,7 +338,7 @@ export default class ExerciseSelectionModal extends Component {
                                                         :
                                                         <div style={{ marginTop: "1.2rem" }}>
                                                             <h2>Enter Details for Set {this.state.setsDetailsArr.length + 1}</h2>
-                                                            <div style={{display:"grid" ,justifyContent:"center"}} >
+                                                            <div style={{ display: "grid", justifyContent: "center" }} >
                                                                 <div className="enterSetDetails-div">
                                                                     <h3>No of reps =</h3>
                                                                     <TextField classes={{ root: "setDetailsInput-textfield" }} style={{ width: "3rem" }} variant="standard" name="noOfReps" value={this.state.noOfReps} type="number" onChange={this.handleChange} required />

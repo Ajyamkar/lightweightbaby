@@ -1,10 +1,57 @@
 .workoutTracker-main-div{
     background: url(../WorkoutTracker/Images/workoutTrackerBg.jpg);
     background-size: 40rem;
-    padding-bottom: 23vh;
+    padding: 64px 16px 23vh;
 }
 
 .workoutTracker-main-div h1{
     text-align: center;
+}
+
+.workoutTracker-outermost-accordionSummary{
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.workoutTracker-h1{
     font-size: 10vw;
+}
+
+.selectedExercises-h1{
+    font-size: 1.8rem;
+}
+
+@media screen and (max-width:1024px) and (min-width:620px){
+
+    
+    .workoutTracker-h1{
+        font-size: 4vw;
+    }
+
+    .workoutTracker-outermost-accordion{
+        width: 90vw !important;
+        margin: 1rem 3.5vw !important;
+    }
+
+    .selectedExercises-h1{
+        font-size: 3.5vw;
+    }
+}
+
+
+@media screen and (min-width:1025px){
+    
+    
+    .workoutTracker-h1{
+        font-size: 5vw;
+    }
+
+    .workoutTracker-outermost-accordion{
+        width: 90vw !important;
+        margin: 1rem 4vw !important;
+    }
+    
+    .selectedExercises-h1{
+        font-size: 3vw;
+    }
 }

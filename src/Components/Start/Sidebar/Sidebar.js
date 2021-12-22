@@ -112,17 +112,17 @@ export default function Sidebar(props) {
                 {drawer(anchor)}
             </Drawer>
 
-            <main className={classes.content}>
-                <Switch>
+            <Switch>
+                <Route exact path="/workoutTracker" component={WorkoutTracker} />
+                <main className={classes.content}>
                     <Route path="/dashboard" component={DashboardComponent} />
                     <Route exact path="/workout" component={Workout} />
-                    <Route exact path="/workoutTracker" component={WorkoutTracker} />
                     <Route exact path="/diet" component={Diet} />
                     <Route exact path="/calorieCounter" component={CalorieCounterComponent} />
                     <Route exact path="/aaisKitchen" component={AaisKitchen} />
                     <Redirect to="/dashboard" />
-                </Switch>
-            </main>
+                </main>
+            </Switch>
 
         </div>
     )
