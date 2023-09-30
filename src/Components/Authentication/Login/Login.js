@@ -11,6 +11,8 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FacebookIcon from "../../../Assets/facebook.png";
 import GoogleIcon from "../../../Assets/google.png";
 import axios from "../../Axios/axios";
+import { setCookie } from "../../../utils/Cookie";
+import { getGoogleAuthUrl } from "../../../api/auth";
 
 export default class Login extends Component {
   constructor(props) {
@@ -106,12 +108,13 @@ export default class Login extends Component {
           </h1>
           <div
             onClick={() => {
-              window.location.href =
-                "http://localhost:9000/auth/googleAuth?forLogin=true";
+              setCookie("forLogin", true, 60 * 2);
+              getGoogleAuthUrl().then((response) => {
+                window.location.href = response.data;
+              });
             }}
             className="social-login-btn"
           >
-            {" "}
             <img
               className="social-login-icon"
               src={GoogleIcon}

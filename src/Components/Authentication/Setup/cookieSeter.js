@@ -1,50 +1,63 @@
-import React, { Component } from 'react';
-import Cookies from 'universal-cookie';
+import React, { useEffect } from "react";
+import { googlAuthentication } from "../../../api/auth";
+import {
+  AUTH_TOKEN_EXPIRY,
+  destroyCookie,
+  getCookie,
+  setCookie,
+} from "../../../utils/Cookie";
 
-export default class CookieSeter extends Component {
+const CookieSeter = () => {
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const forLogin = getCookie("forLogin");
 
-    componentDidMount(){
-        const urlParams =  new URLSearchParams(window.location.search);
-        const registrationErr = urlParams.get('isUserAlreadyExist');
-        const loginErr = urlParams.get('isUserNotFound');
-        const token = urlParams.get('token');
-        const forRegistration= urlParams.get('forRegistration');
+    googlAuthentication(code, forLogin)
+      .then((response) => {
+        console.log(response);
+        const { isUserAlreadyExist, isUserNotFound, token, forRegistration } =
+          response.data;
 
-        if(loginErr){
-            window.alert("User not found try to join with your google or facebook account redirecting to join page");
-            window.location.href = '/join';
+        if (forLogin) {
+          destroyCookie("forLogin");
         }
 
-        if (registrationErr) {
-            window.alert("User already exist with your google or facebook accountredirecting to login page");
-            window.location.href = '/login';
+        if (isUserNotFound) {
+          window.alert(
+            "User not found try to join with your google or facebook account redirecting to join page"
+          );
+          window.location.href = "/join";
         }
 
-        if(forRegistration && token){
-            const cookies = new Cookies();
-            cookies.set('token',token,{
-                path: '/',
-                // maxAge: 1000 * 60,
-                expiresIn: 60 * 15
-            });
-            window.location.href='/setup'
-        }else if(token){
-            const cookies = new Cookies();
-            cookies.set('token',token,{
-                path: '/',
-                // maxAge: 1000 * 60,
-                expiresIn: 60 * 60
-            });
-            window.location.href = '/home'
+        if (isUserAlreadyExist) {
+          window.alert(
+            "User already exist with your google or facebook accountredirecting to login page"
+          );
+
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 2000);
         }
 
-    }
+        if (forRegistration && token) {
+          setCookie("token", token, AUTH_TOKEN_EXPIRY);
+          window.location.href = "/setup";
+        } else if (token) {
+          setCookie("token", token, AUTH_TOKEN_EXPIRY);
+          window.location.href = "/home";
+        }
+      })
+      .catch((err) => {
+        window.location.href = "/login";
+      });
+  }, []);
 
-    render() {
-        return (
-            <div>
-                <h1>Hello</h1>            
-            </div>
-        )
-    }
-}
+  return (
+    <div>
+      <h1>Hello</h1>
+    </div>
+  );
+};
+
+export default CookieSeter;

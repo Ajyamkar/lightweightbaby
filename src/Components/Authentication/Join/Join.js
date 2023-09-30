@@ -11,6 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FacebookIcon from "../../../Assets/facebook.png";
 import GoogleIcon from "../../../Assets/google.png";
+import { getGoogleAuthUrl } from "../../../api/auth";
 
 export default class Join extends Component {
   constructor(props) {
@@ -189,7 +190,9 @@ export default class Join extends Component {
           </h1>
           <div
             onClick={() => {
-              window.location.href = "http://localhost:9000/auth/googleAuth";
+              getGoogleAuthUrl().then((response) => {
+                window.location.href = response.data;
+              });
             }}
             className="social-Join-btn"
           >
